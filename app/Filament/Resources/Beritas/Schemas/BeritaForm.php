@@ -8,7 +8,7 @@ use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Section;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Illuminate\Support\Str;
 
@@ -58,18 +58,19 @@ class BeritaForm
                             ->label('Konten Berita')
                             ->required()
                             ->toolbarButtons([
-                                'bold',
+                                ['bold',
                                 'italic',
                                 'underline',
                                 'strike',
-                                'link',
-                                'heading',
-                                'bulletList',
+                                'link',],
+                                ['h2',
+                                'h3',],
+                                ['bulletList',
                                 'orderedList',
                                 'blockquote',
                                 'codeBlock',
                                 'undo',
-                                'redo',
+                                'redo',]
                             ])
                             ->columnSpanFull(),
                     ]),

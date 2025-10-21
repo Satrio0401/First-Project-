@@ -6,7 +6,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ $title ?? config('app.name', 'Organization Profile') }}</title>
-        <link rel="icon" href="favicon-96x96.png" type="image/x-icon">
+        <link rel="icon" href="{{ asset('favicon-96x96.png') }}" type="image/x-icon">
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap" rel="stylesheet" />
@@ -24,7 +24,7 @@
                     <div class="flex">
                         <div class="flex-shrink-0 flex items-center">
                             <a href="{{ route('home') }}" wire:navigate class="flex gap-1 items-center py-2">
-                                <img src="logo-hmi.png" class="w-4" alt="">
+                                <img src="{{ asset('logo-hmi.png') }}" class="w-4" alt="">
                                 <div class="flex flex-col font-bold text-md text-black leading-none tracking-tight">
                                     <span>HMI CABANG</span>
                                     <span>PONTIANAK</span>
@@ -81,11 +81,7 @@
                         Struktur Pengurus
                     </a>
                     
-<<<<<<< HEAD
-                    <a href="{{ route('berita.index') }}" class="block pl-3 pr-4 py-2 border-Pl-4 {{ request()->routeIs('berita.*') ? 'bg-blue-50 border-blue-500 text-blue-700' : 'border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800' }} text-base font-medium">
-=======
                     <a href="{{ route('berita.index') }}" wire:navigate class="block pl-3 pr-4 py-2 border-l-4 {{ request()->routeIs('berita.*') ? 'bg-green-50 border-green-700 text-green-700' : 'border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800' }} text-base font-medium">
->>>>>>> 53d8178b1a78faee833ec7f678dd4de8a36c99e8
                         Berita
                     </a>
                     
@@ -106,7 +102,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div>
                         <a href="{{ route('home') }}" wire:navigate class="flex gap-3 items-center py-2">
-                                <img src="logo-hmi.png" class="w-6" alt="">
+                                <img src="{{ asset('logo-hmi.png') }}" class="w-6" alt="">
                                 <div class="flex flex-col font-bold text-xl leading-none tracking-tight">
                                     <span>HMI CABANG</span>
                                     <span>PONTIANAK</span>

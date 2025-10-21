@@ -61,7 +61,7 @@
         @if($berita->count() > 0)
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
             @foreach($berita as $item)
-            <a href="{{ route('berita.show', $item->slug) }}" class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition transform hover:-translate-y-1">
+            <a href="{{ route('berita.show', $item->slug) }}" wire:navigate class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition transform hover:-translate-y-1">
                 @if($item->gambar)
                 <img src="{{ $item->gambar_url }}" alt="{{ $item->judul }}" class="w-full h-48 object-cover">
                 @else

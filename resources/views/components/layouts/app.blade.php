@@ -6,7 +6,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ $title ?? config('app.name', 'Organization Profile') }}</title>
-
+        <link rel="icon" href="favicon-96x96.png" type="image/x-icon">
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap" rel="stylesheet" />
@@ -18,42 +18,46 @@
     </head>
     <body class="font-sans antialiased bg-gray-50">
         <!-- Navigation -->
-        <nav class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
+        <nav x-data="{ open: false }" class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between h-16">
                     <div class="flex">
                         <div class="flex-shrink-0 flex items-center">
-                            <a href="{{ route('home') }}" class="text-xl font-bold text-blue-600">
-                                {{ config('app.name', 'Organization') }}
+                            <a href="{{ route('home') }}" wire:navigate class="flex gap-1 items-center py-2">
+                                <img src="logo-hmi.png" class="w-4" alt="">
+                                <div class="flex flex-col font-bold text-md text-black leading-none tracking-tight">
+                                    <span>HMI CABANG</span>
+                                    <span>PONTIANAK</span>
+                                </div>
                             </a>
                         </div>
                     </div>
                     
-                    <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
-                        <a href="{{ route('home') }}" class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('home') ? 'border-blue-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }} text-sm font-medium">
+                    <div class="hidden sm:ml-6 sm:flex sm:space-x-8 py-4">
+                        <a href="{{ route('home') }}" wire:navigate class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('home') ? 'border-green-600 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }} text-sm font-medium">
                             Beranda
                         </a>
                         
-                        <a href="{{ route('tentang') }}" class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('tentang') ? 'border-blue-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }} text-sm font-medium">
+                        <a href="{{ route('tentang') }}" wire:navigate class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('tentang') ? 'border-green-600 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }} text-sm font-medium">
                             Tentang
                         </a>
                         
-                        <a href="{{ route('pengurus') }}" class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('pengurus') ? 'border-blue-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }} text-sm font-medium">
+                        <a href="{{ route('pengurus') }}" wire:navigate class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('pengurus') ? 'border-green-600 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }} text-sm font-medium">
                             Struktur Pengurus
                         </a>
                         
-                        <a href="{{ route('berita.index') }}" class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('berita.*') ? 'border-blue-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }} text-sm font-medium">
+                        <a href="{{ route('berita.index') }}" wire:navigate class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('berita.*') ? 'border-green-600 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }} text-sm font-medium">
                             Berita
                         </a>
                         
-                        <a href="{{ route('program-kerja') }}" class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('program-kerja') ? 'border-blue-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }} text-sm font-medium">
+                        <a href="{{ route('program-kerja') }}" wire:navigate class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('program-kerja') ? 'border-green-600 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }} text-sm font-medium">
                             Program Kerja
                         </a>
                     </div>
                     
-                    <!-- Mobile menu button -->
+                    
                     <div class="flex items-center sm:hidden">
-                        <button @click="open = !open" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
+                        <button @click="open = !open" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-700">
                             <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                             </svg>
@@ -63,55 +67,64 @@
             </div>
             
             <!-- Mobile menu -->
-            <div x-show="open" @click.away="open = false" class="sm:hidden" x-data="{ open: false }">
+            <div x-show="open" @click.away="open = false" class="sm:hidden">
                 <div class="pt-2 pb-3 space-y-1">
-                    <a href="{{ route('home') }}" class="block pl-3 pr-4 py-2 border-l-4 {{ request()->routeIs('home') ? 'bg-blue-50 border-blue-500 text-blue-700' : 'border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800' }} text-base font-medium">
+                    <a href="{{ route('home') }}" wire:navigate class="block pl-3 pr-4 py-2 border-l-4 {{ request()->routeIs('home') ? 'bg-green-50 border-green-700 text-green-700' : 'border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800' }} text-base font-medium">
                         Beranda
                     </a>
                     
-                    <a href="{{ route('tentang') }}" class="block pl-3 pr-4 py-2 border-l-4 {{ request()->routeIs('tentang') ? 'bg-blue-50 border-blue-500 text-blue-700' : 'border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800' }} text-base font-medium">
+                    <a href="{{ route('tentang') }}" wire:navigate class="block pl-3 pr-4 py-2 border-l-4 {{ request()->routeIs('tentang') ? 'bg-green-50 border-green-700 text-green-700' : 'border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800' }} text-base font-medium">
                         Tentang
                     </a>
                     
-                    <a href="{{ route('pengurus') }}" class="block pl-3 pr-4 py-2 border-l-4 {{ request()->routeIs('pengurus') ? 'bg-blue-50 border-blue-500 text-blue-700' : 'border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800' }} text-base font-medium">
+                    <a href="{{ route('pengurus') }}" wire:navigate class="block pl-3 pr-4 py-2 border-l-4 {{ request()->routeIs('pengurus') ? 'bg-green-50 border-green-700 text-green-700' : 'border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800' }} text-base font-medium">
                         Struktur Pengurus
                     </a>
                     
+<<<<<<< HEAD
                     <a href="{{ route('berita.index') }}" class="block pl-3 pr-4 py-2 border-Pl-4 {{ request()->routeIs('berita.*') ? 'bg-blue-50 border-blue-500 text-blue-700' : 'border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800' }} text-base font-medium">
+=======
+                    <a href="{{ route('berita.index') }}" wire:navigate class="block pl-3 pr-4 py-2 border-l-4 {{ request()->routeIs('berita.*') ? 'bg-green-50 border-green-700 text-green-700' : 'border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800' }} text-base font-medium">
+>>>>>>> 53d8178b1a78faee833ec7f678dd4de8a36c99e8
                         Berita
                     </a>
                     
-                    <a href="{{ route('program-kerja') }}" class="block pl-3 pr-4 py-2 border-l-4 {{ request()->routeIs('program-kerja') ? 'bg-blue-50 border-blue-500 text-blue-700' : 'border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800' }} text-base font-medium">
+                    <a href="{{ route('program-kerja') }}" wire:navigate class="block pl-3 pr-4 py-2 border-l-4 {{ request()->routeIs('program-kerja') ? 'bg-green-50 border-green-700 text-green-700' : 'border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800' }} text-base font-medium">
                         Program Kerja
                     </a>
                 </div>
             </div>
         </nav>
 
-        <!-- Page Content -->
         <main>
             {{ $slot }}
         </main>
 
         <!-- Footer -->
-        <footer class="bg-gray-900 text-white mt-20">
+        <footer class=" text-white mt-20" style="background-color: #023d32">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div>
-                        <h3 class="text-lg font-bold mb-4">{{ config('app.name') }}</h3>
+                        <a href="{{ route('home') }}" wire:navigate class="flex gap-3 items-center py-2">
+                                <img src="logo-hmi.png" class="w-6" alt="">
+                                <div class="flex flex-col font-bold text-xl leading-none tracking-tight">
+                                    <span>HMI CABANG</span>
+                                    <span>PONTIANAK</span>
+                                </div>
+                            </a>
                         <p class="text-gray-400 text-sm">
-                            Organisasi yang berkomitmen untuk memberikan kontribusi terbaik bagi masyarakat.
+                            Website Resmi HMI Cabang Pontianak, Organisasi yang berkomitmen untuk memberikan kontribusi terbaik bagi masyarakat.
                         </p>
                     </div>
                     
                     <div>
                         <h3 class="text-lg font-bold mb-4">Menu</h3>
                         <ul class="space-y-2 text-sm">
-                            <li><a href="{{ route('home') }}" class="text-gray-400 hover:text-white">Beranda</a></li>
-                            <li><a href="{{ route('tentang') }}" class="text-gray-400 hover:text-white">Tentang</a></li>
-                            <li><a href="{{ route('pengurus') }}" class="text-gray-400 hover:text-white">Struktur Pengurus</a></li>
-                            <li><a href="{{ route('berita.index') }}" class="text-gray-400 hover:text-white">Berita</a></li>
-                            <li><a href="{{ route('program-kerja') }}" class="text-gray-400 hover:text-white">Program Kerja</a></li>
+                            <li><a href="{{ route('home') }}" wire:navigate class="text-gray-400 hover:text-white">Beranda</a></li>
+                            <li><a href="{{ route('tentang') }}" wire:navigate class="text-gray-400 hover:text-white">Tentang</a></li>
+                            <li><a href="{{ route('pengurus') }}" wire:navigate class="text-gray-400 hover:text-white">Struktur Pengurus</a></li>
+                            <li><a href="{{ route('berita.index') }}" wire:navigate class="text-gray-400 hover:text-white">Berita</a></li>
+                            <li><a href="{{ route('program-kerja') }}" wire:navigate class="text-gray-400 hover:text-white">Program Kerja</a></li>
                         </ul>
                     </div>
                     
@@ -120,13 +133,13 @@
                         <ul class="space-y-2 text-sm text-gray-400">
                             <li>Email: info@organization.com</li>
                             <li>Telp: (021) 1234-5678</li>
-                            <li>Alamat: Jakarta, Indonesia</li>
+                            <li>Alamat: Pontianak, Indonesia</li>
                         </ul>
                     </div>
                 </div>
                 
                 <div class="border-t border-gray-800 mt-8 pt-8 text-center text-sm text-gray-400">
-                    <p>&copy; {{ date('Y') }} {{ config('app.name') }}. All rights reserved.</p>
+                    <p>&copy; {{ date('Y') }} HMI Cabang Pontianak. All rights reserved.</p>
                 </div>
             </div>
         </footer>

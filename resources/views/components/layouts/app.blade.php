@@ -77,7 +77,7 @@
                         Struktur Pengurus
                     </a>
                     
-                    <a href="{{ route('berita.index') }}" class="block pl-3 pr-4 py-2 border-l-4 {{ request()->routeIs('berita.*') ? 'bg-blue-50 border-blue-500 text-blue-700' : 'border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800' }} text-base font-medium">
+                    <a href="{{ route('berita.index') }}" class="block pl-3 pr-4 py-2 border-Pl-4 {{ request()->routeIs('berita.*') ? 'bg-blue-50 border-blue-500 text-blue-700' : 'border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800' }} text-base font-medium">
                         Berita
                     </a>
                     

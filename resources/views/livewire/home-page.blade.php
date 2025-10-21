@@ -1,7 +1,7 @@
-<div>
+<div style="background-color: #0a826c">
     <!-- Hero Section -->
-    <div class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+    <div class="bg-gradient-to-r from-emerald-700 via-green-800 to-teal-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-60">
             <div class="text-center">
                 <h1 class="text-4xl md:text-5xl font-bold mb-4">
                     Selamat Datang di {{ config('app.name') }}
@@ -10,10 +10,10 @@
                     Bersama Membangun Masa Depan yang Lebih Baik
                 </p>
                 <div class="flex justify-center space-x-4">
-                    <a href="{{ route('tentang') }}" class="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-blue-50 transition">
+                    <a href="{{ route('tentang') }}" class="bg-white text-green-700 px-6 py-3 rounded-lg font-semibold hover:bg-green-50 transition">
                         Tentang Kami
                     </a>
-                    <a href="{{ route('berita.index') }}" class="bg-blue-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-400 transition border-2 border-white">
+                    <a href="{{ route('berita.index') }}" class="bg-green-700 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-600 transition">
                         Berita Terbaru
                     </a>
                 </div>

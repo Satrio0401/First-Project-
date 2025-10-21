@@ -1,6 +1,6 @@
 <div>
     <!-- Page Header -->
-    <div class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-16">
+    <div class="bg-linear-to-r from-emerald-600 via-green-800 to-teal-900 text-white py-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h1 class="text-4xl font-bold mb-2">Berita</h1>
             <p class="text-blue-100">Informasi terkini dan pengumuman penting</p>
@@ -19,7 +19,7 @@
                             type="text" 
                             wire:model.live.debounce.300ms="search" 
                             placeholder="Cari berdasarkan judul atau konten..."
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-700 focus:border-transparent"
                         >
                     </div>
 
@@ -28,7 +28,7 @@
                         <label class="block text-sm font-medium text-gray-700 mb-2">Kategori</label>
                         <select 
                             wire:model.live="kategoriFilter"
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-700 focus:border-transparent"
                         >
                             <option value="">Semua Kategori</option>
                             <option value="Artikel">Artikel</option>
@@ -50,7 +50,7 @@
                 @if($kategoriFilter)
                     di kategori <strong>{{ $kategoriFilter }}</strong>
                 @endif
-                <button wire:click="$set('search', ''); $set('kategoriFilter', '')" class="text-blue-600 hover:text-blue-700 ml-2">
+                <button wire:click="resetFilters" class="text-blue-600 hover:text-blue-800 cursor-pointer ml-2 font-medium">
                     Reset
                 </button>
             </p>
@@ -65,7 +65,7 @@
                 @if($item->gambar)
                 <img src="{{ $item->gambar_url }}" alt="{{ $item->judul }}" class="w-full h-48 object-cover">
                 @else
-                <div class="w-full h-48 bg-gradient-to-br from-blue-400 to-indigo-600 flex items-center justify-center">
+                <div class="w-full h-48 bg-linear-to-br from-blue-400 to-indigo-600 flex items-center justify-center">
                     <svg class="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
                     </svg>

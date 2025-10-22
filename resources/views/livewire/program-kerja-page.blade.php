@@ -20,7 +20,7 @@
                 <h2 class="text-3xl font-bold text-gray-900">Program Aktif</h2>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2  gap-6">
                 @foreach($programAktif as $program)
                 <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition border-t-4 border-green-500">
                     <div class="p-6">

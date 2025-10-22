@@ -48,6 +48,51 @@ class OrganizationSeeder extends Seeder
                 'ketua' => 'Prof. Dr. Hendra Kusuma',
                 'wakil_ketua' => 'Rina Marlina, M.M',
             ],
+            [
+                'periode' => '2023-2025',
+                'ketua' => 'Dr. Ahmad Wijaya',
+                'wakil_ketua' => 'Siti Nurhaliza, M.Si',
+            ],
+            [
+                'periode' => '2021-2023',
+                'ketua' => 'Ir. Budi Santoso',
+                'wakil_ketua' => 'Dewi Lestari, S.H',
+            ],
+            [
+                'periode' => '2020-2021',
+                'ketua' => 'Prof. Dr. Hendra Kusuma',
+                'wakil_ketua' => 'Rina Marlina, M.M',
+            ],
+            [
+                'periode' => '2023-2025',
+                'ketua' => 'Dr. Ahmad Wijaya',
+                'wakil_ketua' => 'Siti Nurhaliza, M.Si',
+            ],
+            [
+                'periode' => '2021-2023',
+                'ketua' => 'Ir. Budi Santoso',
+                'wakil_ketua' => 'Dewi Lestari, S.H',
+            ],
+            [
+                'periode' => '2020-2021',
+                'ketua' => 'Prof. Dr. Hendra Kusuma',
+                'wakil_ketua' => 'Rina Marlina, M.M',
+            ],
+            [
+                'periode' => '2023-2025',
+                'ketua' => 'Dr. Ahmad Wijaya',
+                'wakil_ketua' => 'Siti Nurhaliza, M.Si',
+            ],
+            [
+                'periode' => '2021-2023',
+                'ketua' => 'Ir. Budi Santoso',
+                'wakil_ketua' => 'Dewi Lestari, S.H',
+            ],
+            [
+                'periode' => '2020-2021',
+                'ketua' => 'Prof. Dr. Hendra Kusuma',
+                'wakil_ketua' => 'Rina Marlina, M.M',
+            ],
         ];
 
         Setting::create([

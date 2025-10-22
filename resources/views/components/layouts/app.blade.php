@@ -34,7 +34,7 @@
                     </div>
                     
                     <div class="hidden sm:ml-6 sm:flex sm:space-x-8 py-4">
-                        <a href="{{ route('home') }}" wire:navigate class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('home') ? 'border-green-600 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }} text-sm font-medium">
+                        <a href="{{ route('home') }}" class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('home') ? 'border-green-600 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }} text-sm font-medium">
                             Beranda
                         </a>
                         
@@ -73,7 +73,7 @@
             <!-- Mobile menu -->
             <div x-show="open" @click.away="open = false" class="sm:hidden">
                 <div class="pt-2 pb-3 space-y-1">
-                    <a href="{{ route('home') }}" wire:navigate class="block pl-3 pr-4 py-2 border-l-4 {{ request()->routeIs('home') ? 'bg-green-50 border-green-700 text-green-700' : 'border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800' }} text-base font-medium">
+                    <a href="{{ route('home') }}"  class="block pl-3 pr-4 py-2 border-l-4 {{ request()->routeIs('home') ? 'bg-green-50 border-green-700 text-green-700' : 'border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800' }} text-base font-medium">
                         Beranda
                     </a>
                     
@@ -123,7 +123,7 @@
                     <div>
                         <h3 class="text-lg font-bold mb-4">Menu</h3>
                         <ul class="space-y-2 text-sm">
-                            <li><a href="{{ route('home') }}" wire:navigate class="text-gray-400 hover:text-white">Beranda</a></li>
+                            <li><a href="{{ route('home') }}" class="text-gray-400 hover:text-white">Beranda</a></li>
                             <li><a href="{{ route('tentang') }}" wire:navigate class="text-gray-400 hover:text-white">Tentang</a></li>
                             <li><a href="{{ route('pengurus') }}" wire:navigate class="text-gray-400 hover:text-white">Struktur Pengurus</a></li>
                             <li><a href="{{ route('galeri.index') }}" wire:navigate class="text-gray-400 hover:text-white">Galeri</a></li>

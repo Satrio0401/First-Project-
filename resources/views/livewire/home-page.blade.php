@@ -161,13 +161,13 @@
     @endif
 
     <!-- CTA Section -->
-    <div class="reveal bg-gradient-to-r from-indigo-600 to-purple-700 text-white py-16 opacity-0 translate-y-10 transition-all duration-700">
+    <div class="reveal bg-linear-to-r from-indigo-600 to-purple-700 text-white py-16 opacity-0 translate-y-10 transition-all duration-700">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 class="text-3xl font-bold mb-4">Ingin Bergabung dengan Kami?</h2>
             <p class="text-xl text-indigo-100 mb-8">
                 Jadilah bagian dari perubahan positif untuk masa depan yang lebih baik
             </p>
-            <a href="{{ route('tentang') }}" class="inline-block bg-white text-indigo-600 px-8 py-3 rounded-lg font-semibold hover:bg-indigo-50 transition">
+            <a href="{{ route('tentang') }}" wire:navigate class="inline-block bg-white text-indigo-600 px-8 py-3 rounded-lg font-semibold hover:bg-indigo-50 transition">
                 Pelajari Lebih Lanjut
             </a>
         </div>

@@ -40,7 +40,7 @@ class BeritaShow extends Component
     public function getWhatsappShareProperty()
     {
         $text = urlencode($this->berita->judul . ' - ' . $this->shareUrl);
-        return 'https://wa.me/?text=' . $text;
+        return 'https://web.whatsapp.com/?text=' . $text;
     }
 
     public function render()

@@ -1,6 +1,6 @@
 <div>
 
-    <section class="bg-gradient-to-r from-emerald-700 via-green-800 to-teal-900 text-white py-20">
+    <section class="bg-linear-to-r from-emerald-700 via-green-800 to-teal-900 text-white py-20">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center px-6 md:px-12">
             
             <!-- Teks Kiri -->
@@ -143,7 +143,7 @@
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 @foreach($programKerjaAktif as $program)
-                <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg border border-green-200">
+                <div class="bg-linear-to-br from-green-50 to-green-100 p-6 rounded-lg border border-green-200">
                     <span class="inline-block px-3 py-1 text-xs font-semibold bg-green-500 text-white rounded-full mb-4">Aktif</span>
                     <h3 class="text-xl font-bold text-gray-900 mb-3">{{ $program->nama }}</h3>
                     <p class="text-gray-700 mb-4">{{ Str::limit($program->deskripsi, 150) }}</p>
@@ -172,27 +172,5 @@
             </a>
         </div>
     </div>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const reveals = document.querySelectorAll(".reveal");
-        
-            const options = {
-                threshold: 0.1
-            };
-        
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.remove("opacity-0", "translate-y-10");
-                    }
-                });
-            }, options);
-        
-            reveals.forEach(section => {
-                observer.observe(section);
-            });
-        });
-    </script>
 
 </div>

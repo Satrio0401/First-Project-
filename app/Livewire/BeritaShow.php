@@ -21,6 +21,28 @@ class BeritaShow extends Component
         $this->berita->incrementViews();
     }
 
+    public function getShareUrlProperty()
+    {
+        return route('berita.show', $this->berita->slug);
+    }
+
+    public function getFacebookShareProperty()
+    {
+        return 'https://www.facebook.com/sharer/sharer.php?u=' . urlencode($this->shareUrl);
+    }
+
+    public function getTwitterShareProperty()
+    {
+        $text = urlencode($this->berita->judul);
+        return 'https://twitter.com/intent/tweet?url=' . urlencode($this->shareUrl) . '$text=' . $text;
+    }
+
+    public function getWhatsappShareProperty()
+    {
+        $text = urlencode($this->berita->judul . ' - ' . $this->shareUrl);
+        return 'https://wa.me/?text=' . $text;
+    }
+
     public function render()
     {
         // Get related news

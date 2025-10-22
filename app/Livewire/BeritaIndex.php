@@ -27,6 +27,13 @@ class BeritaIndex extends Component
         $this->resetPage();
     }
 
+    public function resetFilters()
+    {
+        $this->search = '';
+        $this->kategoriFilter = '';
+        $this->resetPage();
+    }
+    
     public function render()
     {
         $query = Berita::published()->latest('published_at');

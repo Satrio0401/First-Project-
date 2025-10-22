@@ -6,7 +6,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ $title ?? config('app.name', 'Organization Profile') }}</title>
-        <link rel="icon" href="favicon-96x96.png" type="image/x-icon">
+        <link rel="icon" href="{{ asset('new-favicon-96x96.png') }}" type="image/x-icon">
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap" rel="stylesheet" />
@@ -22,9 +22,9 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between h-16">
                     <div class="flex">
-                        <div class="flex-shrink-0 flex items-center">
+                        <div class="shrink-0 flex items-center">
                             <a href="{{ route('home') }}" wire:navigate class="flex gap-1 items-center py-2">
-                                <img src="logo-hmi.png" class="w-4" alt="">
+                                <img src="{{ asset('logo-hmi.png') }}" class="w-4" alt="">
                                 <div class="flex flex-col font-bold text-md text-black leading-none tracking-tight">
                                     <span>HMI CABANG</span>
                                     <span>PONTIANAK</span>
@@ -46,6 +46,10 @@
                             Struktur Pengurus
                         </a>
                         
+                        <a href="{{ route('galeri.index') }}" wire:navigate class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('galeri.*') ? 'border-green-600 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }} text-sm font-medium">
+                            Galeri
+                        </a>
+
                         <a href="{{ route('berita.index') }}" wire:navigate class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('berita.*') ? 'border-green-600 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }} text-sm font-medium">
                             Berita
                         </a>
@@ -81,6 +85,9 @@
                         Struktur Pengurus
                     </a>
                     
+                    <a href="{{ route('galeri.index') }}" wire:navigate class="block pl-3 pr-4 py-2 border-l-4 {{ request()->routeIs('galeri.*') ? 'bg-green-50 border-green-700 text-green-700' : 'border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800' }} text-base font-medium">
+                        Galeri
+                    </a>
                     <a href="{{ route('berita.index') }}" wire:navigate class="block pl-3 pr-4 py-2 border-l-4 {{ request()->routeIs('berita.*') ? 'bg-green-50 border-green-700 text-green-700' : 'border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800' }} text-base font-medium">
                         Berita
                     </a>
@@ -102,7 +109,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div>
                         <a href="{{ route('home') }}" wire:navigate class="flex gap-3 items-center py-2">
-                                <img src="logo-hmi.png" class="w-6" alt="">
+                                <img src="{{ asset('logo-footer.png') }}" class="w-7" alt="">
                                 <div class="flex flex-col font-bold text-xl leading-none tracking-tight">
                                     <span>HMI CABANG</span>
                                     <span>PONTIANAK</span>
@@ -119,6 +126,7 @@
                             <li><a href="{{ route('home') }}" wire:navigate class="text-gray-400 hover:text-white">Beranda</a></li>
                             <li><a href="{{ route('tentang') }}" wire:navigate class="text-gray-400 hover:text-white">Tentang</a></li>
                             <li><a href="{{ route('pengurus') }}" wire:navigate class="text-gray-400 hover:text-white">Struktur Pengurus</a></li>
+                            <li><a href="{{ route('galeri.index') }}" wire:navigate class="text-gray-400 hover:text-white">Galeri</a></li>
                             <li><a href="{{ route('berita.index') }}" wire:navigate class="text-gray-400 hover:text-white">Berita</a></li>
                             <li><a href="{{ route('program-kerja') }}" wire:navigate class="text-gray-400 hover:text-white">Program Kerja</a></li>
                         </ul>

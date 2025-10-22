@@ -14,7 +14,7 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         
-        @livewireStyles
+        @livewireStyles  
     </head>
     <body class="font-sans antialiased bg-gray-50">
         <!-- Navigation -->

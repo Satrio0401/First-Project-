@@ -1,29 +1,72 @@
-<div style="background-color: #0a826c">
-    <!-- Hero Section -->
-    <div class="bg-gradient-to-r from-emerald-700 via-green-800 to-teal-900 text-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-60">
-            <div class="text-center">
-                <h1 class="text-4xl md:text-5xl font-bold mb-4">
-                    Selamat Datang di {{ config('app.name') }}
+<div>
+
+    <section class="bg-gradient-to-r from-emerald-700 via-green-800 to-teal-900 text-white py-20">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center px-6 md:px-12">
+            
+            <!-- Teks Kiri -->
+            <div class="md:w-1/2 mb-10 md:mb-0">
+                <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-4">
+                    Selamat Datang di Website Official<br>
+                    <span class="text-emerald-300">HMI Cabang Pontianak</span>
                 </h1>
-                <p class="text-xl md:text-2xl text-blue-100 mb-8">
-                    Bersama Membangun Masa Depan yang Lebih Baik
+                <p class="text-lg md:text-xl text-gray-200 mb-8">
+                    Wadah perjuangan mahasiswa Islam dalam mewujudkan insan akademis, pencipta, pengabdi yang bernafaskan Islam.
                 </p>
-                <div class="flex justify-center space-x-4">
-                    <a href="{{ route('tentang') }}" class="bg-white text-green-700 px-6 py-3 rounded-lg font-semibold hover:bg-green-50 transition">
+                <div class="flex space-x-4">
+                    <a href="{{ route('tentang') }}" 
+                       class="bg-white text-green-800 px-6 py-3 rounded-lg font-semibold hover:bg-green-50 transition">
                         Tentang Kami
                     </a>
-                    <a href="{{ route('berita.index') }}" class="bg-green-700 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-600 transition">
+                    <a href="{{ route('berita.index') }}" 
+                       class="bg-emerald-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-emerald-500 transition">
                         Berita Terbaru
                     </a>
                 </div>
             </div>
+    
+            <!-- Ilustrasi / Logo Kanan -->
+            <div class="md:w-1/2 flex justify-center">
+                <img src="LOGO-HMI.webp" alt="Ilustrasi HMI" class="w-50 md:w-50 drop-shadow-xl">
+            </div>
+        </div>
+    </section>
+    
+    
+    
+    
+    <div class="reveal py-16 bg-white opacity-0 translate-y-10 transition-all duration-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                
+                <!-- Bagian Teks -->
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">Tentang Kami</h2>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        HMI Cabang Pontianak adalah organisasi mahasiswa yang berfokus pada pengembangan
+                        kepemimpinan, intelektualitas, dan pengabdian masyarakat. Kami aktif menyelenggarakan
+                        program pendidikan, seminar, dan kegiatan sosial untuk membentuk kader berkualitas,
+                        kreatif, dan berintegritas.
+                    </p>
+    
+                    <a href="#program" 
+                       class="inline-block bg-green-700 hover:bg-green-800 text-white font-medium px-6 py-3 rounded-lg transition">
+                        Pelajari Program Kami
+                    </a>
+                </div>
+    
+                <!-- Bagian Ilustrasi -->
+                <div class="flex justify-center">
+                    <img src="hmi.jpg" alt="Ilustrasi Organisasi" class="w-full max-w-md">
+                </div>
+    
+            </div>
         </div>
     </div>
+     
 
-    <!-- Visi Misi Section -->
+    {{-- <!-- Visi Misi Section -->
     @if($visi || $misi)
-    <div class="py-16 bg-white">
+    <div class="reveal py-16 bg-white opacity-0 translate-y-10 transition-all duration-700">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 @if($visi)
@@ -42,15 +85,16 @@
             </div>
         </div>
     </div>
-    @endif
+    @endif --}}
 
     <!-- Berita Terbaru Section -->
     @if($latestBerita->count() > 0)
-    <div class="py-16 bg-gray-50">
+    <div class="reveal py-16 bg-gray-50 opacity-0 translate-y-10 transition-all duration-700">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center mb-8">
                 <h2 class="text-3xl font-bold text-gray-900">Berita Terbaru</h2>
-                <a href="{{ route('berita.index') }}" class="text-blue-600 hover:text-blue-700 font-semibold">
+                <a href="{{ route('berita.index') }}" class="text-[#0a826c] hover:text-[#086b57] font-semibold"
+                >
                     Lihat Semua →
                 </a>
             </div>
@@ -88,34 +132,25 @@
 
     <!-- Program Kerja Aktif Section -->
     @if($programKerjaAktif->count() > 0)
-    <div class="py-16 bg-white">
+    <div class="reveal py-16 bg-white opacity-0 translate-y-10 transition-all duration-700">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center mb-8">
                 <h2 class="text-3xl font-bold text-gray-900">Program Kerja Aktif</h2>
-                <a href="{{ route('program-kerja') }}" class="text-blue-600 hover:text-blue-700 font-semibold">
+                <a href="{{ route('program-kerja') }}" class="text-[#0a826c] hover:text-[#086b57] font-semibold"
+                >
                     Lihat Semua →
                 </a>
             </div>
-            
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 @foreach($programKerjaAktif as $program)
                 <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg border border-green-200">
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="inline-block px-3 py-1 text-xs font-semibold bg-green-500 text-white rounded-full">
-                            Aktif
-                        </span>
-                    </div>
+                    <span class="inline-block px-3 py-1 text-xs font-semibold bg-green-500 text-white rounded-full mb-4">Aktif</span>
                     <h3 class="text-xl font-bold text-gray-900 mb-3">{{ $program->nama }}</h3>
                     <p class="text-gray-700 mb-4">{{ Str::limit($program->deskripsi, 150) }}</p>
                     @if($program->tanggal_mulai || $program->tanggal_selesai)
                     <div class="text-sm text-gray-600">
                         <span class="font-semibold">Periode:</span>
-                        @if($program->tanggal_mulai)
-                            {{ $program->tanggal_mulai->format('d M Y') }}
-                        @endif
-                        @if($program->tanggal_selesai)
-                            - {{ $program->tanggal_selesai->format('d M Y') }}
-                        @endif
+                        {{ $program->tanggal_mulai->format('d M Y') }} - {{ $program->tanggal_selesai->format('d M Y') }}
                     </div>
                     @endif
                 </div>
@@ -126,7 +161,7 @@
     @endif
 
     <!-- CTA Section -->
-    <div class="bg-gradient-to-r from-indigo-600 to-purple-700 text-white py-16">
+    <div class="reveal bg-gradient-to-r from-indigo-600 to-purple-700 text-white py-16 opacity-0 translate-y-10 transition-all duration-700">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 class="text-3xl font-bold mb-4">Ingin Bergabung dengan Kami?</h2>
             <p class="text-xl text-indigo-100 mb-8">
@@ -137,4 +172,27 @@
             </a>
         </div>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const reveals = document.querySelectorAll(".reveal");
+        
+            const options = {
+                threshold: 0.1
+            };
+        
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.remove("opacity-0", "translate-y-10");
+                    }
+                });
+            }, options);
+        
+            reveals.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+
 </div>

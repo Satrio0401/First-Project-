@@ -123,8 +123,10 @@
                         </div>
                     @endforeach
                 </div>
+                @endforeach
             </div>
         @endif
+
     </div>
     
     

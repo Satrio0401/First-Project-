@@ -1,12 +1,21 @@
 <div>
 
-    <div class="bg-linear-to-r from-emerald-700 via-green-800 to-teal-900 text-white py-16">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="relative bg-gradient-to-r from-emerald-700 via-green-800 to-teal-900 text-white py-16 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <h1 class="text-4xl font-bold mb-2">Tentang Kami</h1>
-            <p class="text-blue-100">Memahami Visi, Sejarah, dan Perjuangan Kami
-                        dalam Membina Insan Cita.</p>
+            <p class="text-blue-100">
+                Memahami Visi, Sejarah, dan Perjuangan Kami dalam Membina Insan Cita.
+            </p>
         </div>
+    
+        <!-- Gambar di kanan, tetap dalam ukuran div, menyatu dengan background -->
+        <img 
+            src="hmi.jpg" 
+            alt="Ilustrasi Organisasi"
+            class="absolute right-0 top-0 h-full object-cover opacity-40 mix-blend-overlay transform transition-transform duration-500 hover:scale-105 hover:translate-y-1"
+        >
     </div>
+    
     <div class="max-w-7xl py-12 bg-white">
         {{-- visi misi --}}
         <div class="grid grid-cols-1 lg:grid-cols-2 mb-12">

@@ -54,10 +54,17 @@
                     </a>
                 </div>
     
-                <!-- Bagian Ilustrasi -->
-                <div class="flex justify-center">
-                    <img src="hmi.jpg" alt="Ilustrasi Organisasi" class="w-full max-w-md">
-                </div>
+<!-- Bagian Ilustrasi -->
+<div class="flex justify-center">
+    <div class="overflow-hidden border-4 border-green-500 rounded-lg w-full max-w-md">
+        <img 
+            src="hmi.jpg" 
+            alt="Ilustrasi Organisasi" 
+            class="w-full h-auto object-cover transform transition-transform duration-500 hover:scale-105 hover:rotate-2"
+        >
+    </div>
+</div>
+
     
             </div>
         </div>
@@ -87,20 +94,17 @@
     </div>
     @endif --}}
 
-    <!-- Berita Terbaru Section -->
-    @if($latestBerita->count() > 0)
-    <div class="reveal py-16 bg-gray-50 opacity-0 translate-y-10 transition-all duration-700">
+    @if($pengumuman->count() > 0)
+    <div class="reveal py-16 bg-yellow-50 opacity-0 translate-y-10 transition-all duration-700">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center mb-8">
-                <h2 class="text-3xl font-bold text-gray-900">Berita Terbaru</h2>
-                <a href="{{ route('berita.index') }}" class="text-[#0a826c] hover:text-[#086b57] font-semibold"
-                >
+                <h2 class="text-3xl font-bold text-gray-900">Pengumuman Terbaru</h2>
+                <a href="{{ route('berita.index', ['kategori' => 'Pengumuman']) }}" class="text-[#0a826c] hover:text-[#086b57] font-semibold">
                     Lihat Semua →
                 </a>
             </div>
-            
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                @foreach($latestBerita as $berita)
+                @foreach($pengumuman as $berita)
                 <a href="{{ route('berita.show', $berita->slug) }}" class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
                     @if($berita->gambar)
                     <img src="{{ $berita->gambar_url }}" alt="{{ $berita->judul }}" class="w-full h-48 object-cover">
@@ -109,9 +113,8 @@
                         <span class="text-gray-400">No Image</span>
                     </div>
                     @endif
-                    
                     <div class="p-6">
-                        <span class="inline-block px-3 py-1 text-xs font-semibold rounded-full mb-2 {{ $berita->kategori == 'Artikel' ? 'bg-blue-100 text-blue-800' : 'bg-yellow-100 text-yellow-800' }}">
+                        <span class="inline-block px-3 py-1 text-xs font-semibold rounded-full mb-2 bg-yellow-100 text-yellow-800">
                             {{ $berita->kategori }}
                         </span>
                         <h3 class="text-xl font-bold text-gray-900 mb-2">{{ $berita->judul }}</h3>
@@ -129,6 +132,47 @@
         </div>
     </div>
     @endif
+    
+
+    @if($artikel->count() > 0)
+    <div class="reveal py-16 bg-gray-50 opacity-0 translate-y-10 transition-all duration-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-3xl font-bold text-gray-900">Artikel Terbaru</h2>
+                <a href="{{ route('berita.index', ['kategori' => 'Artikel']) }}" class="text-[#0a826c] hover:text-[#086b57] font-semibold">
+                    Lihat Semua →
+                </a>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                @foreach($artikel as $berita)
+                <a href="{{ route('berita.show', $berita->slug) }}" class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                    @if($berita->gambar)
+                    <img src="{{ $berita->gambar_url }}" alt="{{ $berita->judul }}" class="w-full h-48 object-cover">
+                    @else
+                    <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
+                        <span class="text-gray-400">No Image</span>
+                    </div>
+                    @endif
+                    <div class="p-6">
+                        <span class="inline-block px-3 py-1 text-xs font-semibold rounded-full mb-2 bg-blue-100 text-blue-800">
+                            {{ $berita->kategori }}
+                        </span>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">{{ $berita->judul }}</h3>
+                        <p class="text-gray-600 text-sm mb-4">{{ $berita->excerpt }}</p>
+                        <div class="flex items-center text-sm text-gray-500">
+                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                            {{ $berita->published_at->format('d M Y') }}
+                        </div>
+                    </div>
+                </a>
+                @endforeach
+            </div>
+        </div>
+    </div>
+    @endif
+    
 
     <!-- Program Kerja Aktif Section -->
     @if($programKerjaAktif->count() > 0)

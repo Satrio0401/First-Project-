@@ -14,7 +14,16 @@ class HomePage extends Component
 {
     public function render()
     {
-        $latestBerita = Berita::published()
+        // Pengumuman
+        $pengumuman = Berita::published()
+            ->where('kategori', 'Pengumuman')
+            ->latest('published_at')
+            ->take(3)
+            ->get();
+
+        // Artikel
+        $artikel = Berita::published()
+            ->where('kategori', 'Artikel')
             ->latest('published_at')
             ->take(3)
             ->get();
@@ -28,7 +37,8 @@ class HomePage extends Component
         $misi = Setting::get('misi');
 
         return view('livewire.home-page', [
-            'latestBerita' => $latestBerita,
+            'pengumuman' => $pengumuman,
+            'artikel' => $artikel,
             'programKerjaAktif' => $programKerjaAktif,
             'visi' => $visi,
             'misi' => $misi,

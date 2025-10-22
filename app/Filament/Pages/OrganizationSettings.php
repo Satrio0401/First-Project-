@@ -3,6 +3,8 @@
 namespace App\Filament\Pages;
 
 use App\Models\Setting;
+use App\Models\Misi;
+use App\Models\SejarahPengurus;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\TextInput;
@@ -15,6 +17,7 @@ use Filament\Pages\Page;
 use Filament\Notifications\Notification;
 use Filament\Support\Icons\Heroicon;
 use BackedEnum;
+use Filament\Schemas\Schema;
 
 class OrganizationSettings extends Page implements HasForms
 {
@@ -38,33 +41,38 @@ class OrganizationSettings extends Page implements HasForms
     public function mount(): void
     {
         $settings = Setting::getMultiple(['visi', 'misi', 'sejarah', 'sejarah_kepengurusan']);
+        $misi = Misi::orderBy('order_column')->get()->toArray();
+        $sejarahKepengurusan = SejarahPengurus::orderBy('order_column')->get()->toArray();
         
         $this->form->fill([
             'visi' => $settings['visi'] ?? '',
-            'misi' => $settings['misi'] ?? '',
+            'misi' => $misi,
             'sejarah' => $settings['sejarah'] ?? '',
-            'sejarah_kepengurusan' => $settings['sejarah_kepengurusan'] 
-                ? json_decode($settings['sejarah_kepengurusan'], true) 
-                : [],
+            'sejarah_kepengurusan' => $sejarahKepengurusan,
         ]);
     }
 
-    public function form(Form $form): Form
+    public function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
+        return $schema
+            ->components([
                 Section::make('Visi & Misi')
                     ->schema([
                         Textarea::make('visi')
                             ->label('Visi Organisasi')
                             ->rows(4)
                             ->columnSpanFull(),
-                        
-                        Textarea::make('misi')
+                        Repeater::make('misi')
                             ->label('Misi Organisasi')
-                            ->rows(6)
-                            ->helperText('Gunakan enter untuk memisahkan setiap poin misi')
-                            ->columnSpanFull(),
+                            ->schema([
+                                TextInput::make('deskripsi_misi')
+                                ->label('Deskripsi Misi')
+                                ->required()
+                                ->columnSpanFull(),
+                            ])
+                            ->orderColumn('order_column')
+                            ->reorderable()
+                            ->addActionLabel('Tambah Misi'),
                     ]),
 
                 Section::make('Sejarah Organisasi')
@@ -80,10 +88,13 @@ class OrganizationSettings extends Page implements HasForms
                         Repeater::make('sejarah_kepengurusan')
                             ->label('Periode Kepengurusan')
                             ->schema([
-                                TextInput::make('periode')
-                                    ->label('Periode')
-                                    ->placeholder('contoh: 2020-2022')
-                                    ->required(),
+                                TextInput::make('periode_mulai')
+                                    ->label('Tahun Mulai')
+                                    ->numeric()->length(4)->required(),
+                                
+                                TextInput::make('periode_berakhir')
+                                    ->label('Tahun Berakhir')
+                                    ->numeric()->length(4)->required(),
                                 
                                 TextInput::make('ketua')
                                     ->label('Ketua')
@@ -92,11 +103,10 @@ class OrganizationSettings extends Page implements HasForms
                                 TextInput::make('wakil_ketua')
                                     ->label('Wakil Ketua'),
                             ])
-                            ->columns(3)
-                            ->defaultItems(0)
+                            ->columns(4)
+                            ->addActionLabel('Tambah Periode')
                             ->columnSpanFull()
-                            ->collapsible()
-                            ->orderColumn('order')
+                            ->orderColumn('order_column')
                             ->reorderable(),
                     ]),
             ])
@@ -108,9 +118,28 @@ class OrganizationSettings extends Page implements HasForms
         $data = $this->form->getState();
 
         Setting::set('visi', $data['visi']);
-        Setting::set('misi', $data['misi']);
+        Misi::query()->delete();
+        if (!empty($data['misi'])) {
+            foreach ($data['misi'] as $index => $misiItem) {
+                Misi::create([
+                    'deskripsi_misi' => $misiItem['deskripsi_misi'],
+                    'order_column' => $index + 1,
+                ]);
+            }
+        }
         Setting::set('sejarah', $data['sejarah']);
-        Setting::set('sejarah_kepengurusan', json_encode($data['sejarah_kepengurusan']));
+        SejarahPengurus::query()->delete();
+        if (!empty($data['sejarah_kepengurusan'])) {
+            foreach ($data['sejarah_kepengurusan'] as $index => $periode) {
+                SejarahPengurus::create([
+                    'periode_mulai' => $periode['periode_mulai'],
+                    'periode_berakhir' => $periode['periode_berakhir'],
+                    'ketua' => $periode['ketua'],
+                    'wakil_ketua' => $periode['wakil_ketua'],
+                    'order_column' => $index + 1,
+                ]);
+            }
+        }
 
         Notification::make()
             ->title('Berhasil Disimpan')

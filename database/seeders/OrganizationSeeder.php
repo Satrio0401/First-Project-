@@ -22,83 +22,12 @@ class OrganizationSeeder extends Seeder
             'value' => 'Menjadi organisasi yang terdepan dalam memberikan kontribusi positif bagi kemajuan masyarakat dan pembangunan berkelanjutan.'
         ]);
 
-        Setting::create([
-            'key' => 'misi',
-            'value' => "Menyelenggarakan program-program inovatif yang bermanfaat bagi masyarakat\nMembangun jaringan kolaborasi dengan berbagai pihak\nMengembangkan kapasitas dan kompetensi anggota organisasi\nMewujudkan tata kelola organisasi yang profesional dan akuntabel"
-        ]);
 
         Setting::create([
             'key' => 'sejarah',
-            'value' => 'Organisasi kami didirikan pada tahun 2020 dengan semangat untuk memberikan kontribusi nyata bagi masyarakat. Berawal dari sekelompok individu yang memiliki visi yang sama, kami terus berkembang dan kini telah memiliki puluhan anggota aktif yang berdedikasi.\n\nDalam perjalanannya, organisasi kami telah melaksanakan berbagai program dan kegiatan yang berdampak positif bagi masyarakat. Kami berkomitmen untuk terus berinovasi dan memberikan yang terbaik dalam setiap program yang kami jalankan.'
+            'value' => 'Organisasi kami didirikan pada tahun 2020 dengan semangat untuk memberikan kontribusi nyata bagi masyarakat. Berawal dari sekelompok individu yang memiliki visi yang sama, kami terus berkembang dan kini telah memiliki puluhan anggota aktif yang berdedikasi.Dalam perjalanannya, organisasi kami telah melaksanakan berbagai program dan kegiatan yang berdampak positif bagi masyarakat. Kami berkomitmen untuk terus berinovasi dan memberikan yang terbaik dalam setiap program yang kami jalankan.'
         ]);
 
-        $sejarahKepengurusan = [
-            [
-                'periode' => '2023-2025',
-                'ketua' => 'Dr. Ahmad Wijaya',
-                'wakil_ketua' => 'Siti Nurhaliza, M.Si',
-            ],
-            [
-                'periode' => '2021-2023',
-                'ketua' => 'Ir. Budi Santoso',
-                'wakil_ketua' => 'Dewi Lestari, S.H',
-            ],
-            [
-                'periode' => '2020-2021',
-                'ketua' => 'Prof. Dr. Hendra Kusuma',
-                'wakil_ketua' => 'Rina Marlina, M.M',
-            ],
-            [
-                'periode' => '2023-2025',
-                'ketua' => 'Dr. Ahmad Wijaya',
-                'wakil_ketua' => 'Siti Nurhaliza, M.Si',
-            ],
-            [
-                'periode' => '2021-2023',
-                'ketua' => 'Ir. Budi Santoso',
-                'wakil_ketua' => 'Dewi Lestari, S.H',
-            ],
-            [
-                'periode' => '2020-2021',
-                'ketua' => 'Prof. Dr. Hendra Kusuma',
-                'wakil_ketua' => 'Rina Marlina, M.M',
-            ],
-            [
-                'periode' => '2023-2025',
-                'ketua' => 'Dr. Ahmad Wijaya',
-                'wakil_ketua' => 'Siti Nurhaliza, M.Si',
-            ],
-            [
-                'periode' => '2021-2023',
-                'ketua' => 'Ir. Budi Santoso',
-                'wakil_ketua' => 'Dewi Lestari, S.H',
-            ],
-            [
-                'periode' => '2020-2021',
-                'ketua' => 'Prof. Dr. Hendra Kusuma',
-                'wakil_ketua' => 'Rina Marlina, M.M',
-            ],
-            [
-                'periode' => '2023-2025',
-                'ketua' => 'Dr. Ahmad Wijaya',
-                'wakil_ketua' => 'Siti Nurhaliza, M.Si',
-            ],
-            [
-                'periode' => '2021-2023',
-                'ketua' => 'Ir. Budi Santoso',
-                'wakil_ketua' => 'Dewi Lestari, S.H',
-            ],
-            [
-                'periode' => '2020-2021',
-                'ketua' => 'Prof. Dr. Hendra Kusuma',
-                'wakil_ketua' => 'Rina Marlina, M.M',
-            ],
-        ];
-
-        Setting::create([
-            'key' => 'sejarah_kepengurusan',
-            'value' => json_encode($sejarahKepengurusan)
-        ]);
 
         // Pengurus Inti
         Pengurus::create([

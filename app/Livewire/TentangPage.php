@@ -4,7 +4,10 @@ namespace App\Livewire;
 
 use App\Models\Setting;
 use Livewire\Component;
-
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+#[Layout('components.layouts.app')]
+#[Title('Tentang Kami')]
 class TentangPage extends Component
 {
     public function render()
@@ -21,6 +24,6 @@ class TentangPage extends Component
             'misi' => $settings['misi'] ?? '',
             'sejarah' => $settings['sejarah'] ?? '',
             'sejarahKepengurusan' => $sejarahKepengurusan,
-        ])->layout('components.layouts.app', ['title' => 'Tentang Kami']);
+        ]);
     }
 }

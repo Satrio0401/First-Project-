@@ -4,12 +4,19 @@ namespace App\Livewire;
 
 use App\Models\Berita;
 use Livewire\Component;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+#[Layout('components.layouts.app')]
 
 class BeritaShow extends Component
 {
+    public Berita $berita;
     public $slug;
-    public $berita;
-
+    #[Title]
+    public function title(): string
+    {
+        return $this->berita->judul ?? 'Berita';
+    }
     public function mount($slug)
     {
         $this->slug = $slug;
@@ -34,13 +41,13 @@ class BeritaShow extends Component
     public function getTwitterShareProperty()
     {
         $text = urlencode($this->berita->judul);
-        return 'https://twitter.com/intent/tweet?url=' . urlencode($this->shareUrl) . '$text=' . $text;
+        return 'https://twitter.com/intent/tweet?url=' . urlencode($this->shareUrl) . '&text=' . $text;
     }
 
     public function getWhatsappShareProperty()
     {
         $text = urlencode($this->berita->judul . ' - ' . $this->shareUrl);
-        return 'https://web.whatsapp.com/?text=' . $text;
+        return 'https://api.whatsapp.com/?text=' . $text;
     }
 
     public function render()
@@ -55,6 +62,6 @@ class BeritaShow extends Component
 
         return view('livewire.berita-show', [
             'relatedBerita' => $relatedBerita,
-        ])->layout('components.layouts.app', ['title' => $this->berita->judul]);
+        ]);
     }
 }

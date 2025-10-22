@@ -6,7 +6,10 @@ use App\Models\Berita;
 use App\Models\ProgramKerja;
 use App\Models\Setting;
 use Livewire\Component;
-
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+#[Layout('components.layouts.app')]
+#[Title('Beranda')]
 class HomePage extends Component
 {
     public function render()
@@ -29,6 +32,6 @@ class HomePage extends Component
             'programKerjaAktif' => $programKerjaAktif,
             'visi' => $visi,
             'misi' => $misi,
-        ])->layout('components.layouts.app', ['title' => 'Beranda']);
+        ]);
     }
 }

@@ -4,7 +4,10 @@ namespace App\Livewire;
 
 use App\Models\ProgramKerja;
 use Livewire\Component;
-
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+#[Layout('components.layouts.app')]
+#[Title('Program Kerja')]
 class ProgramKerjaPage extends Component
 {
     public function render()
@@ -20,6 +23,6 @@ class ProgramKerjaPage extends Component
         return view('livewire.program-kerja-page', [
             'programAktif' => $programAktif,
             'programSelesai' => $programSelesai,
-        ])->layout('components.layouts.app', ['title' => 'Program Kerja']);
+        ]);
     }
 }

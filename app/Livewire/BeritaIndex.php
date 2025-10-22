@@ -6,7 +6,10 @@ use App\Models\Berita;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Livewire\Attributes\Url;
-
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+#[Layout('components.layouts.app')]
+#[Title('Berita')]
 class BeritaIndex extends Component
 {
     use WithPagination;
@@ -50,6 +53,6 @@ class BeritaIndex extends Component
 
         return view('livewire.berita-index', [
             'berita' => $berita,
-        ])->layout('components.layouts.app', ['title' => 'Berita']);
+        ]);
     }
 }

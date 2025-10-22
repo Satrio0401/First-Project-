@@ -14,7 +14,7 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         
-        @livewireStyles
+        @livewireStyles  
     </head>
     <body class="font-sans antialiased bg-gray-50">
         <!-- Navigation -->
@@ -81,11 +81,7 @@
                         Struktur Pengurus
                     </a>
                     
-<<<<<<< HEAD
-                    <a href="{{ route('berita.index') }}" class="block pl-3 pr-4 py-2 border-Pl-4 {{ request()->routeIs('berita.*') ? 'bg-blue-50 border-blue-500 text-blue-700' : 'border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800' }} text-base font-medium">
-=======
                     <a href="{{ route('berita.index') }}" wire:navigate class="block pl-3 pr-4 py-2 border-l-4 {{ request()->routeIs('berita.*') ? 'bg-green-50 border-green-700 text-green-700' : 'border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800' }} text-base font-medium">
->>>>>>> 53d8178b1a78faee833ec7f678dd4de8a36c99e8
                         Berita
                     </a>
                     

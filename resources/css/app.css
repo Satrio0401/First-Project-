@@ -6,3 +6,43 @@
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+@layer utilities {
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+  
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(40px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+  
+    @keyframes fadeInLeft {
+      0% { opacity: 0; transform: translateX(-50px); }
+      100% { opacity: 1; transform: translateX(0); }
+    }
+  
+    @keyframes fadeInRight {
+      0% { opacity: 0; transform: translateX(50px); }
+      100% { opacity: 1; transform: translateX(0); }
+    }
+  
+    @keyframes slideInUp {
+      0% { transform: translateY(60px); }
+      100% { transform: translateY(0); }
+    }
+  
+    @keyframes zoomIn {
+      0% { opacity: 0; transform: scale(0.95); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+  
+    .animate-fadeIn { animation: fadeIn 1s ease-in-out; }
+    .animate-fadeInUp { animation: fadeInUp 1s ease-in-out; }
+    .animate-fadeInLeft { animation: fadeInLeft 1s ease-in-out; }
+    .animate-fadeInRight { animation: fadeInRight 1s ease-in-out; }
+    .animate-slideInUp { animation: slideInUp 1s ease-in-out; }
+    .animate-zoomIn { animation: zoomIn 0.8s ease-in-out; }
+  }
+  

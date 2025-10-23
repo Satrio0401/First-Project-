@@ -26,7 +26,7 @@
                                 class="w-full h-64 object-cover">
                         @else
                             {{-- Perbaikan: Menggunakan bg-gradient-to-br --}}
-                            <div class="w-full h-64 bg-linear-to-br from-blue-400 to-indigo-600 flex items-center justify-center">
+                            <div class="w-full h-64 bg-linear-to-br  from-teal-400 to-green-600 flex items-center justify-center">
                                 <svg class="w-24 h-24 text-white" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd"
                                         d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"

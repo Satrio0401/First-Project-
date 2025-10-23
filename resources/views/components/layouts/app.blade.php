@@ -20,14 +20,21 @@
 
 <body class="font-sans antialiased bg-gray-50">
     <!-- Navigation -->
-    <nav x-data="{ open: false }" class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
+    <nav x-data="{ open: false, isScrolled: false }" x-init="window.addEventListener('scroll', () => { isScrolled = window.scrollY > 10 })"
+        :class="isScrolled
+            ?
+            'bg-gradient-to-r from-emerald-700 via-green-800 to-teal-900 shadow-lg' :
+            'bg-white border-b border-gray-200'"
+        class="transition-all duration-300 sticky top-0 z-50">
+
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex">
                     <div class="shrink-0 flex items-center">
                         <a href="{{ route('home') }}" wire:navigate class="flex gap-2 items-center py-2">
                             <img src="{{ asset('logo-hmi.png') }}" class="w-4" alt="">
-                            <div class="flex flex-col font-bold text-md text-black leading-none tracking-tight">
+                            <div class="flex flex-col font-bold text-md leading-none tracking-tight"
+                                :class="isScrolled ? 'text-white' : 'text-black'">
                                 <span>HMI CABANG</span>
                                 <span>PONTIANAK</span>
                             </div>
@@ -36,41 +43,34 @@
                 </div>
 
                 <div class="hidden sm:ml-6 sm:flex sm:space-x-8 py-4">
-                    <a href="{{ route('home') }}" wire:navigate
-                        class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('home') ? 'border-green-600 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }} text-sm font-medium">
-                        Beranda
-                    </a>
+                    @php
+                        $links = [
+                            'home' => 'Beranda',
+                            'tentang' => 'Tentang',
+                            'pengurus' => 'Struktur Pengurus',
+                            'galeri.index' => 'Galeri',
+                            'berita.index' => 'Berita',
+                            'program-kerja' => 'Program Kerja',
+                        ];
+                    @endphp
 
-                    <a href="{{ route('tentang') }}" wire:navigate
-                        class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('tentang') ? 'border-green-600 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }} text-sm font-medium">
-                        Tentang
-                    </a>
-
-                    <a href="{{ route('pengurus') }}" wire:navigate
-                        class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('pengurus') ? 'border-green-600 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }} text-sm font-medium">
-                        Struktur Pengurus
-                    </a>
-
-                    <a href="{{ route('galeri.index') }}" wire:navigate
-                        class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('galeri.*') ? 'border-green-600 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }} text-sm font-medium">
-                        Galeri
-                    </a>
-
-                    <a href="{{ route('berita.index') }}" wire:navigate
-                        class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('berita.*') ? 'border-green-600 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }} text-sm font-medium">
-                        Berita
-                    </a>
-
-                    <a href="{{ route('program-kerja') }}" wire:navigate
-                        class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('program-kerja') ? 'border-green-600 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }} text-sm font-medium">
-                        Program Kerja
-                    </a>
+                    @foreach ($links as $route => $label)
+                        <a href="{{ route($route) }}" wire:navigate
+                            class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition"
+                            :class="isScrolled
+                                ?
+                                '{{ request()->routeIs($route) ? 'border-white text-white' : 'border-transparent text-white hover:border-white/70' }}' :
+                                '{{ request()->routeIs($route) ? 'border-green-600 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }}'">
+                            {{ $label }}
+                        </a>
+                    @endforeach
                 </div>
-
 
                 <div class="flex items-center sm:hidden">
                     <button @click="open = !open" type="button"
-                        class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-700">
+                        :class="isScrolled ? 'text-white hover:bg-white/20' :
+                            'text-gray-400 hover:text-gray-500 hover:bg-gray-100'"
+                        class="inline-flex items-center justify-center p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-700 transition">
                         <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -80,6 +80,10 @@
                 </div>
             </div>
         </div>
+
+
+
+
 
         <!-- Mobile menu -->
         <div x-show="open" @click.away="open = false" class="sm:hidden">

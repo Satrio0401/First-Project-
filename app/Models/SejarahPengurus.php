@@ -11,5 +11,6 @@ class SejarahPengurus extends Model
         'periode_berakhir',
         'ketua',
         'wakil_ketua',
+        'order_column',
     ];
 }

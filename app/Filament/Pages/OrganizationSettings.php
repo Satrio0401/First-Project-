@@ -40,13 +40,13 @@ class OrganizationSettings extends Page implements HasForms
 
     public function mount(): void
     {
-        $settings = Setting::getMultiple(['visi', 'misi', 'sejarah', 'sejarah_kepengurusan']);
-        $misi = Misi::orderBy('order_column')->get()->toArray();
+        $settings = Setting::getMultiple(['visi', 'misi', 'sejarah']);
+        
         $sejarahKepengurusan = SejarahPengurus::orderBy('order_column')->get()->toArray();
         
         $this->form->fill([
             'visi' => $settings['visi'] ?? '',
-            'misi' => $misi,
+            'misi' => $settings['visi'] ?? '',
             'sejarah' => $settings['sejarah'] ?? '',
             'sejarah_kepengurusan' => $sejarahKepengurusan,
         ]);
@@ -62,17 +62,11 @@ class OrganizationSettings extends Page implements HasForms
                             ->label('Visi Organisasi')
                             ->rows(4)
                             ->columnSpanFull(),
-                        Repeater::make('misi')
+                        Textarea::make('misi')
                             ->label('Misi Organisasi')
-                            ->schema([
-                                TextInput::make('deskripsi_misi')
-                                ->label('Deskripsi Misi')
-                                ->required()
-                                ->columnSpanFull(),
-                            ])
-                            ->orderColumn('order_column')
-                            ->reorderable()
-                            ->addActionLabel('Tambah Misi'),
+                            ->rows(8)
+                            ->helperText('Pisahkan setiap poin misi dengan menekan tombol Enter.')
+                            ->columnSpanFull(),
                     ]),
 
                 Section::make('Sejarah Organisasi')
@@ -118,15 +112,7 @@ class OrganizationSettings extends Page implements HasForms
         $data = $this->form->getState();
 
         Setting::set('visi', $data['visi']);
-        Misi::query()->delete();
-        if (!empty($data['misi'])) {
-            foreach ($data['misi'] as $index => $misiItem) {
-                Misi::create([
-                    'deskripsi_misi' => $misiItem['deskripsi_misi'],
-                    'order_column' => $index + 1,
-                ]);
-            }
-        }
+        Setting::set('misi', $data['misi']);
         Setting::set('sejarah', $data['sejarah']);
         SejarahPengurus::query()->delete();
         if (!empty($data['sejarah_kepengurusan'])) {

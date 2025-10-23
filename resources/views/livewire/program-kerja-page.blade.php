@@ -10,7 +10,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <!-- Program Aktif -->
         @if($programAktif->count() > 0)
-        <div class="mb-16">
+        <div class="reveal mb-16 opacity-0 translate-y-10 transition-all duration-700">
             <div class="flex items-center mb-8">
                 <div class="bg-green-100 rounded-full p-3 mr-4">
                     <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -65,7 +65,7 @@
 
         <!-- Program Selesai -->
         @if($programSelesai->count() > 0)
-        <div>
+        <div class="reveal opacity-0 translate-y-10 transition-all duration-700">
             <div class="flex items-center mb-8">
                 <div class="bg-gray-100 rounded-full p-3 mr-4">
                     <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -53,7 +53,7 @@
 
                 <!-- Article Body -->
                 <div class="px-2 sm:px-8 pb-8">
-                    <div class="prose prose-lg max-w-none">
+                    <div class="prose prose-lg max-w-none text-justify">
                         {!! $berita->konten !!}
                     </div>
                 </div>

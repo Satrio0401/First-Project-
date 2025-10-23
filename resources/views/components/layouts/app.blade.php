@@ -121,7 +121,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class=" text-white mt-20" style="background-color: #023d32">
+    <footer class=" text-white" style="background-color: #023d32">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div>

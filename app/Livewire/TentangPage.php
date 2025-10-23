@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Setting;
+use App\Models\SejarahPengurus;
 use Livewire\Component;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
@@ -14,10 +15,7 @@ class TentangPage extends Component
     {
         $settings = Setting::getMultiple(['visi', 'misi', 'sejarah', 'sejarah_kepengurusan']);
         
-        $sejarahKepengurusan = [];
-        if (!empty($settings['sejarah_kepengurusan'])) {
-            $sejarahKepengurusan = json_decode($settings['sejarah_kepengurusan'], true) ?? [];
-        }
+        $sejarahKepengurusan = SejarahPengurus::orderBy('order_column')->get();
 
         return view('livewire.tentang-page', [
             'visi' => $settings['visi'] ?? '',

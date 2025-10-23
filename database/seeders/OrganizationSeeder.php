@@ -7,6 +7,7 @@ use App\Models\Setting;
 use App\Models\Pengurus;
 use App\Models\Berita;
 use App\Models\ProgramKerja;
+use App\Models\SejarahPengurus;
 use Illuminate\Support\Str;
 
 class OrganizationSeeder extends Seeder
@@ -21,6 +22,10 @@ class OrganizationSeeder extends Seeder
             'key' => 'visi',
             'value' => 'Menjadi organisasi yang terdepan dalam memberikan kontribusi positif bagi kemajuan masyarakat dan pembangunan berkelanjutan.'
         ]);
+        Setting::create([
+            'key' => 'misi',
+            'value' => 'Menjadi organisasi yang terdepan dalam memberikan kontribusi positif bagi kemajuan masyarakat dan pembangunan berkelanjutan.Menjadi organisasi yang terdepan dalam memberikan kontribusi positif bagi kemajuan masyarakat dan pembangunan berkelanjutan.Menjadi organisasi yang terdepan dalam memberikan kontribusi positif bagi kemajuan masyarakat dan pembangunan berkelanjutan.Menjadi organisasi yang terdepan dalam memberikan kontribusi positif bagi kemajuan masyarakat dan pembangunan berkelanjutan.Menjadi organisasi yang terdepan dalam memberikan kontribusi positif bagi kemajuan masyarakat dan pembangunan berkelanjutan.'
+        ]);
 
 
         Setting::create([
@@ -29,6 +34,34 @@ class OrganizationSeeder extends Seeder
         ]);
 
 
+        SejarahPengurus::create([
+            'ketua' => 'Dr. Ahmad Wijaya',
+            'wakil_ketua' => 'Siti Nurhaliza, M.Si',
+            'periode_mulai' => '2020',
+            'periode_berakhir' => '2022',
+            'order_column' => 1,
+        ]);
+        SejarahPengurus::create([
+            'ketua' => 'Dr. Ahmad Wijaya',
+            'wakil_ketua' => 'Siti Nurhaliza, M.Si',
+            'periode_mulai' => '2020',
+            'periode_berakhir' => '2022',
+            'order_column' => 2,
+        ]);
+        SejarahPengurus::create([
+            'ketua' => 'Dr. Ahmad Wijaya',
+            'wakil_ketua' => 'Siti Nurhaliza, M.Si',
+            'periode_mulai' => '2020',
+            'periode_berakhir' => '2022',
+            'order_column' => 3,
+        ]);
+        SejarahPengurus::create([
+            'ketua' => 'Dr. Ahmad Wijaya',
+            'wakil_ketua' => 'Siti Nurhaliza, M.Si',
+            'periode_mulai' => '2020',
+            'periode_berakhir' => '2022',
+            'order_column' => 4,
+        ]);
         // Pengurus Inti
         Pengurus::create([
             'nama' => 'Dr. Ahmad Wijaya',

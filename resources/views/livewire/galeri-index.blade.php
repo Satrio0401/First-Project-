@@ -1,7 +1,7 @@
-<div> <!-- Satu root container untuk Livewire -->
+<div> 
     
     <!-- Header Galeri -->
-    <div class="bg-gradient-to-r from-emerald-700 via-green-800 to-teal-900 text-white py-16">
+    <div class="bg-linear-to-r from-emerald-700 via-green-800 to-teal-900 text-white py-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h1 class="text-4xl font-bold mb-2">Galeri</h1>
             <p class="text-blue-100">Rekam Jejak Perjuangan dalam Lensa.</p>
@@ -20,7 +20,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- Gambar Galeri -->
                     <template x-for="(image, index) in images" :key="index">
-                        <div class="relative rounded-lg overflow-hidden shadow-lg cursor-pointer border-4 border-green-500"
+                        <div class="reveal relative rounded-lg overflow-hidden shadow-lg cursor-pointer border-4 border-green-500 opacity-0 translate-y-10 transition-all duration-700"
                              @click="openModal(index)">
                             <img :src="image.src" :alt="image.title" class="w-full h-64 object-cover">
                             <div class="absolute inset-0 bg-black/40"></div>

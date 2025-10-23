@@ -10,7 +10,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
         @if($pengurusInti->count() > 0)
-        <div class="mb-16">
+        <div class="reveal mb-16 opacity-0 translate-y-10 transition-all duration-700">
             <div class="text-center mb-10">
                 <h2 class="text-3xl font-bold text-gray-900 mb-2">Pengurus Inti</h2>
                 <div class="w-24 h-1 bg-green-600 mx-auto rounded-full"></div>
@@ -51,7 +51,7 @@
 
         <!-- Divisi Section -->
         @if($divisi->count() > 0)
-        <div>
+        <div class="reveal opacity-0 translate-y-10 transition-all duration-700">
             <div class="text-center mb-10">
                 <h2 class="text-3xl font-bold text-gray-900 mb-2">Tim Divisi</h2>
                 <div class="w-24 h-1 bg-emerald-600 mx-auto rounded-full"></div>
@@ -64,7 +64,7 @@
                         @if($pengurus->foto)
                         <img src="{{ $pengurus->foto_url }}" alt="{{ $pengurus->nama }}" class="w-full h-48 object-cover">
                         @else
-                        <div class="w-full h-48 bg-gradient-to-br from-teal-400 to-green-600 flex items-center justify-center">
+                        <div class="w-full h-48 bg-linear-to-br from-teal-400 to-green-600 flex items-center justify-center">
                             <svg class="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
                             </svg>

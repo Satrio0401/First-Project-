@@ -5,26 +5,17 @@ namespace App\Livewire;
 use App\Models\Berita;
 use Livewire\Component;
 use Livewire\Attributes\Layout;
-use Livewire\Attributes\Title;
 #[Layout('components.layouts.app')]
-
 class BeritaShow extends Component
 {
     public Berita $berita;
-    public $slug;
-    #[Title]
-    public function title(): string
-    {
-        return $this->berita->judul ?? 'Berita';
-    }
+
     public function mount($slug)
     {
-        $this->slug = $slug;
         $this->berita = Berita::where('slug', $slug)
             ->published()
             ->firstOrFail();
         
-        // Increment views
         $this->berita->incrementViews();
     }
 
@@ -47,21 +38,21 @@ class BeritaShow extends Component
     public function getWhatsappShareProperty()
     {
         $text = urlencode($this->berita->judul . ' - ' . $this->shareUrl);
-        return 'https://api.whatsapp.com/?text=' . $text;
+        // Perbaikan kecil: gunakan api.whatsapp.com untuk kompatibilitas mobile
+        return 'https://api.whatsapp.com/send?text=' . $text;
     }
 
     public function render()
     {
-        // Get related news
         $relatedBerita = Berita::published()
             ->where('kategori', $this->berita->kategori)
             ->where('id', '!=', $this->berita->id)
             ->latest('published_at')
             ->take(3)
             ->get();
-
+        
         return view('livewire.berita-show', [
             'relatedBerita' => $relatedBerita,
-        ]);
+        ])->title($this->berita->judul);
     }
 }

@@ -14,7 +14,7 @@
                     bernafaskan Islam.
                 </p>
                 <div class="flex justify-center md:justify-start space-x-4">
-                    <a href="{{ route('tentang') }}"
+                    <a href="#tentang"
                         class="bg-white text-green-800 px-6 py-3 rounded-lg font-semibold hover:bg-green-50 transition">
                         Tentang Kami
                     </a>
@@ -34,7 +34,7 @@
     
 
 
-    <div class="reveal py-16 bg-white opacity-0 translate-y-10 transition-all duration-700">
+    <div id="tentang" class="reveal py-16 bg-white opacity-0 translate-y-10 transition-all duration-700">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
     
@@ -57,7 +57,7 @@
                         kreatif, dan berintegritas.
                     </p>
     
-                    <a href="#program"
+                    <a href="{{ route('tentang') }}"
                         class="inline-block bg-green-700 hover:bg-green-800 text-white font-medium px-6 py-3 rounded-lg transition">
                         Pelajari Program Kami
                     </a>

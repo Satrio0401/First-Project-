@@ -45,4 +45,8 @@
     .animate-slideInUp { animation: slideInUp 1s ease-in-out; }
     .animate-zoomIn { animation: zoomIn 0.8s ease-in-out; }
   }
+
+  html {
+    scroll-behavior: smooth;
+}
   

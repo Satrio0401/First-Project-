@@ -91,7 +91,7 @@
                             </div>
                         </div>
                         <a href="{{ route('berita.index') }}"
-                            class="text-blue-600 hover:text-blue-800 font-semibold flex items-center mt-2">
+                            class="text-green-600 hover:text-green-800 font-semibold flex items-center mt-2">
                             <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -116,7 +116,7 @@
                                     class="w-full h-40 object-cover">
                             @else
                                 <div
-                                    class="w-full h-40 bg-linear-to-br from-blue-400 to-indigo-600 flex items-center justify-center">
+                                    class="w-full h-40 bg-linear-to-br from-green-500 to-emerald-700 flex items-center justify-center">
                                     <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor"
                                         viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

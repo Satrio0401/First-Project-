@@ -5,6 +5,7 @@ namespace App\Livewire;
 use Livewire\WithPagination;
 use App\Models\Galeri;
 use Livewire\Component;
+use Livewire\Attributes\Url;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 
@@ -18,6 +19,20 @@ class GaleriIndex extends Component
     public bool $isModalOpen = false;
     public ?Galeri $activeAlbum = null;
     public int $currentImageIndex = 0;
+
+    #[Url(as: 'q')]
+    public $search = '';
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function resetFilters()
+    {
+        $this->search = '';
+        $this->resetPage();
+    }
 
     // Method untuk membuka modal
     public function openModal($albumId)
@@ -53,14 +68,19 @@ class GaleriIndex extends Component
 
     public function render()
     {
-        // Ambil album dengan gambar pertamanya untuk tampilan grid
-        $galeris = Galeri::with('firstImage')
+        $query = Galeri::with('firstImage')
             ->has('firstImage')
-            ->latest()
-            ->paginate(9);
-
+            ->latest();
+    
+        if ($this->search) {
+            $query->search($this->search);
+        }
+    
+        $galeris = $query->paginate(9);
+    
         return view('livewire.galeri-index', [
             'galeris' => $galeris,
         ]);
     }
+    
 }

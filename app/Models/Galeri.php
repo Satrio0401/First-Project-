@@ -32,4 +32,13 @@ class Galeri extends Model
     {
         return $this->hasOne(GaleriImage::class)->oldestOfMany();
     }
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->where(function ($q) use ($search) {
+            $q->where('judul', 'like', "%{$search}%");
+        });
+    }
+    
+
 }

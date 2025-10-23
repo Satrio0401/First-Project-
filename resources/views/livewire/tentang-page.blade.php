@@ -7,10 +7,6 @@
                 Memahami Visi, Sejarah, dan Perjuangan Kami dalam Membina Insan Cita.
             </p>
         </div>
-
-        <!-- Gambar di kanan, tetap dalam ukuran div, menyatu dengan background -->
-        <img src="hmi.jpg" alt="Ilustrasi Organisasi"
-            class="absolute right-0 top-0 h-full object-cover opacity-40 mix-blend-overlay transform transition-transform duration-500 hover:scale-105 hover:translate-y-1">
     </div>
     <div class="bg-gray-100 flex flex-col gap-12 py-6 px-2 md:px-6">
         {{-- visi misi --}}

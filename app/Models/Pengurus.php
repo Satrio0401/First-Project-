@@ -45,7 +45,7 @@ class Pengurus extends Model
 
     public function scopeDivisi($query)
     {
-        return $query->where('status', 'Divisi');
+        return $query->whereNot('status', 'Pengurus Inti');
     }
 
     public function scopeOrdered($query)

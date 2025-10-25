@@ -45,23 +45,24 @@
                 <div class="hidden sm:ml-6 sm:flex sm:space-x-8 py-4">
                     @php
                         $links = [
-                            'home' => 'Beranda',
-                            'tentang' => 'Tentang',
-                            'pengurus' => 'Struktur Pengurus',
-                            'galeri.index' => 'Galeri',
-                            'berita.index' => 'Berita',
-                            'program-kerja' => 'Program Kerja',
+                            ['route' => 'home', 'label' => 'Beranda'],
+                            ['route' => 'tentang', 'label' => 'Tentang'],
+                            ['route' => 'pengurus', 'label' => 'Struktur Pengurus'],
+                            ['route' => 'galeri.index', 'label' => 'Galeri'],
+                            // 👇 PERUBAHAN DI SINI
+                            ['route' => 'berita.index', 'active' => 'berita.*', 'label' => 'Berita'],
+                            ['route' => 'program-kerja', 'label' => 'Program Kerja'],
                         ];
                     @endphp
 
-                    @foreach ($links as $route => $label)
-                        <a href="{{ route($route) }}" wire:navigate
+                    @foreach ($links as $link)
+                        <a href="{{ route($link['route']) }}" wire:navigate
                             class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition"
                             :class="isScrolled
                                 ?
-                                '{{ request()->routeIs($route) ? 'border-white text-white' : 'border-transparent text-white hover:border-white/70' }}' :
-                                '{{ request()->routeIs($route) ? 'border-green-600 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }}'">
-                            {{ $label }}
+                                '{{ request()->routeIs($link['active'] ?? $link['route']) ? 'border-white text-white' : 'border-transparent text-white hover:border-white/70' }}' :
+                                '{{ request()->routeIs($link['active'] ?? $link['route']) ? 'border-green-600 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }}'">
+                            {{ $link['label'] }}
                         </a>
                     @endforeach
                 </div>

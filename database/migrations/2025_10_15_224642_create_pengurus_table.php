@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->string('jabatan');
-            $table->enum('status', ['Pengurus Inti', 'Divisi'])->default('Divisi');
+            $table->enum('status', ['Pengurus Inti', 'Divisi Humas', 'Divisi Dokumentasi', 'Divisi Usaha dan Dana']);
             $table->string('foto')->nullable();
             $table->integer('urutan')->default(0);
             $table->boolean('is_active')->default(true);

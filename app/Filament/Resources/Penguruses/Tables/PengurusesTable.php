@@ -37,7 +37,9 @@ class PengurusesTable
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
                         'Pengurus Inti' => 'success',
-                        'Divisi' => 'info',
+                        'Divisi Dokumentasi' => 'info',
+                        'Divisi Humas' => 'info',
+                        'Divisi Usaha dan Dana' => 'info',
                     })
                     ->sortable(),
                     

@@ -31,10 +31,12 @@ class PengurusForm
                             ->label('Status')
                             ->options([
                                 'Pengurus Inti' => 'Pengurus Inti',
-                                'Divisi' => 'Divisi',
+                                'Divisi Humas' => 'Divisi Humas',
+                                'Divisi Dokumentasi' => 'Divisi Dokumentasi',
+                                'Divisi Usaha dan Dana' => 'Divisi Usaha dan Dana',
                             ])
                             ->required()
-                            ->default('Divisi'),
+                            ->default('Divisi Humas'),
                         
                         FileUpload::make('foto')
                             ->label('Foto')

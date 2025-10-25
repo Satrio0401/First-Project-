@@ -50,37 +50,45 @@
         @endif
 
         <!-- Divisi Section -->
-        @if($divisi->count() > 0)
-        <div class="reveal opacity-0 translate-y-10 transition-all duration-700">
+        
+@if($divisi->isNotEmpty())
+    
+    {{-- 1. LOOP LUAR: Untuk setiap grup divisi --}}
+    @foreach($divisi as $namaDivisi => $anggota)
+        <div class="reveal opacity-0 translate-y-10 transition-all duration-700 mt-16 mb-16">
+            
+            {{-- Tampilkan nama divisi sebagai judul --}}
             <div class="text-center mb-10">
-                <h2 class="text-3xl font-bold text-gray-900 mb-2">Tim Divisi</h2>
+                <h2 class="text-3xl font-bold text-gray-900 mb-2">{{ $namaDivisi }}</h2>
                 <div class="w-24 h-1 bg-emerald-600 mx-auto rounded-full"></div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                @foreach($divisi as $pengurus)
-                <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition">
-                    <div class="relative">
-                        @if($pengurus->foto)
-                        <img src="{{ $pengurus->foto_url }}" alt="{{ $pengurus->nama }}" class="w-full h-48 object-cover">
-                        @else
-                        <div class="w-full h-48 bg-linear-to-br from-teal-400 to-green-600 flex items-center justify-center">
-                            <svg class="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
-                            </svg>
+                
+                {{-- 2. LOOP DALAM: Untuk setiap anggota di dalam divisi tersebut --}}
+                @foreach($anggota as $pengurus)
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition">
+                        <div class="relative">
+                            @if($pengurus->foto)
+                                <img src="{{ $pengurus->foto_url }}" alt="{{ $pengurus->nama }}" class="w-full h-48 object-cover">
+                            @else
+                                <div class="w-full h-48 bg-gradient-to-br from-teal-400 to-green-600 flex items-center justify-center">
+                                    <svg class="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                            @endif
                         </div>
-                        @endif
+                        <div class="p-4 text-center">
+                            <h3 class="text-lg font-bold text-gray-900 mb-1">{{ $pengurus->nama }}</h3>
+                            <p class="text-green-700 text-sm font-medium">{{ $pengurus->jabatan }}</p>
+                        </div>
                     </div>
-                    <div class="p-4 text-center">
-                        <h3 class="text-lg font-bold text-gray-900 mb-1">{{ $pengurus->nama }}</h3>
-                        <p class="text-green-700 text-sm font-medium">{{ $pengurus->jabatan }}</p>
-                    </div>
-                </div>
                 @endforeach
-                {{-- Perbaikan: Menambahkan penutup div yang hilang --}}
             </div>
         </div>
-        @endif
+    @endforeach
+@endif
     </div>
 </div>
 

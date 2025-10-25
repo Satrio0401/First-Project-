@@ -96,19 +96,68 @@ class OrganizationSeeder extends Seeder
         ]);
 
         // Divisi
-        Pengurus::create([
-            'nama' => 'Dedi Firmansyah',
-            'jabatan' => 'Koordinator Program',
-            'status' => 'Divisi',
-            'urutan' => 5,
-            'is_active' => true,
-        ]);
 
         Pengurus::create([
             'nama' => 'Maya Angelina',
             'jabatan' => 'Koordinator Humas',
-            'status' => 'Divisi',
+            'status' => 'Divisi Humas',
+            'urutan' => 5,
+            'is_active' => true,
+        ]);
+        Pengurus::create([
+            'nama' => 'Maya Angelina',
+            'jabatan' => 'Koordinator Humas',
+            'status' => 'Divisi Humas',
             'urutan' => 6,
+            'is_active' => true,
+        ]);
+        Pengurus::create([
+            'nama' => 'Maya Angelina',
+            'jabatan' => 'Koordinator Humas',
+            'status' => 'Divisi Humas',
+            'urutan' => 7,
+            'is_active' => true,
+        ]);
+        Pengurus::create([
+            'nama' => 'Maya Angelina',
+            'jabatan' => 'Koordinator Humas',
+            'status' => 'Divisi Dokumentasi',
+            'urutan' => 8,
+            'is_active' => true,
+        ]);
+        Pengurus::create([
+            'nama' => 'Maya Angelina',
+            'jabatan' => 'Koordinator Humas',
+            'status' => 'Divisi Dokumentasi',
+            'urutan' => 9,
+            'is_active' => true,
+        ]);
+        Pengurus::create([
+            'nama' => 'Maya Angelina',
+            'jabatan' => 'Koordinator Humas',
+            'status' => 'Divisi Dokumentasi',
+            'urutan' => 10,
+            'is_active' => true,
+        ]);
+        Pengurus::create([
+            'nama' => 'Maya Angelina',
+            'jabatan' => 'Koordinator Humas',
+            'status' => 'Divisi Usaha dan Dana',
+            'urutan' => 11,
+            'is_active' => true,
+        ]);
+        Pengurus::create([
+            'nama' => 'Maya Angelina',
+            'jabatan' => 'Koordinator Humas',
+            'status' => 'Divisi Usaha dan Dana',
+            'urutan' => 12,
+            'is_active' => true,
+        ]);
+        Pengurus::create([
+            'nama' => 'Maya Angelina',
+            'jabatan' => 'Koordinator Humas',
+            'status' => 'Divisi Usaha dan Dana',
+            'urutan' => 13,
             'is_active' => true,
         ]);
 

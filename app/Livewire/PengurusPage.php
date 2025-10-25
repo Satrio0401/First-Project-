@@ -20,7 +20,8 @@ class PengurusPage extends Component
         $divisi = Pengurus::active()
             ->divisi()
             ->ordered()
-            ->get();
+            ->get()
+            ->groupBy('status');
 
         return view('livewire.pengurus-page', [
             'pengurusInti' => $pengurusInti,

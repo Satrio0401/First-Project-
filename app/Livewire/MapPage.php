@@ -2,12 +2,24 @@
 
 namespace App\Livewire;
 
+use App\Models\Anggota;
 use Livewire\Component;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
 
-class Map extends Component
+#[Layout('components.layouts.app')]
+#[Title('Peta')]
+class MapPage extends Component
 {
     public function render()
     {
-        return view('livewire.map');
+        // Ambil data anggota, group berdasarkan kecamatan
+        $kecamatanData = Anggota::selectRaw('alamat as kecamatan, AVG(latitude) as latitude, AVG(longitude) as longitude, COUNT(*) as jumlah')
+            ->groupBy('alamat')
+            ->get();
+
+        return view('livewire.map-page', [
+            'kecamatanData' => $kecamatanData
+        ]);
     }
 }

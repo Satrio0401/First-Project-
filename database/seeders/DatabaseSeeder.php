@@ -23,6 +23,8 @@ class DatabaseSeeder extends Seeder
         // Seed organization data
         $this->call([
             OrganizationSeeder::class,
+            AnggotaSeeder::class, // <- tambahkan ini
+            KomisariatSeeder::class,
         ]);
     }
 }

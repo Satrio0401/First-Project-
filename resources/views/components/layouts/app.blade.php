@@ -49,9 +49,9 @@
                             ['route' => 'tentang', 'label' => 'Tentang'],
                             ['route' => 'pengurus', 'label' => 'Struktur Pengurus'],
                             ['route' => 'galeri.index', 'label' => 'Galeri'],
-                            // 👇 PERUBAHAN DI SINI
                             ['route' => 'berita.index', 'active' => 'berita.*', 'label' => 'Berita'],
                             ['route' => 'program-kerja', 'label' => 'Program Kerja'],
+                            ['route' => 'map', 'label' => 'Peta'],
                         ];
                     @endphp
 

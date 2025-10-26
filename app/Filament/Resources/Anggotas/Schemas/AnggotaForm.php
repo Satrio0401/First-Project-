@@ -25,8 +25,6 @@ class AnggotaForm
                             ->label('Nama Lengkap')
                             ->required()
                             ->maxLength(255),
-
-                        // 👇 Input untuk Relasi Komisariat
                         Select::make('komisariat_id')
                             ->label('Asal Komisariat')
                             ->relationship('komisariat', 'nama')
@@ -38,30 +36,30 @@ class AnggotaForm
                                     ->required(),
                             ])
                             ->required(),
-
                         Textarea::make('alamat')
                             ->required()
                             ->columnSpanFull(),
+                        FileUpload::make('foto')
+                            ->label('Foto Anggota')
+                            ->image()
+                            ->directory('anggota')
+                            ->imageEditor()
+                            ->maxSize(2048),
                     ])->columns(2),
 
                 Section::make('Lokasi Geospasial')
                     ->description('Klik atau geser pin di peta untuk menentukan lokasi.')
                     ->schema([
-                        // 👇 Input Peta Interaktif
-                        // Pastikan komponen MapLocationPicker Anda sudah dibuat
                         MapLocationPicker::make('location')
                             ->label('Pilih Lokasi di Peta')
                             ->columnSpanFull()
-                            ->live() // Agar update saat digeser
-                            // Ambil state 'location' dan pecah menjadi latitude & longitude
+                            ->live()
                             ->afterStateUpdated(function (callable $set, ?array $state): void {
                                 if ($state) {
                                     $set('latitude', $state['lat']);
                                     $set('longitude', $state['lng']);
                                 }
                             }),
-
-                        // Field ini tetap dibutuhkan untuk menyimpan data ke database, tapi kita sembunyikan
                         Hidden::make('latitude'),
                         Hidden::make('longitude'),
                     ]),

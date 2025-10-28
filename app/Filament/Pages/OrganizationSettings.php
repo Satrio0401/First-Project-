@@ -32,7 +32,10 @@ class OrganizationSettings extends Page implements HasForms
     protected static ?int $navigationSort = 99;
 
     public ?array $data = [];
-    
+    public static function canAccess(): bool
+    {
+        return auth()->user()->hasRole('Super Admin');
+    }
     public function getView(): string
     {
         return 'filament.pages.organization-settings';

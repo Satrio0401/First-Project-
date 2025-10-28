@@ -16,26 +16,24 @@ class AnggotaForm
 {
     public static function configure(Schema $schema): Schema
     {
+        $user = auth()->user();
         return $schema
             ->columns(1) 
             ->components([
                 Section::make('Informasi Anggota')
                     ->schema([
-                        TextInput::make('nama')
+                        TextInput::make('user.name')
                             ->label('Nama Lengkap')
-                            ->required()
+                            ->required()                            
                             ->maxLength(255),
                         Select::make('komisariat_id')
                             ->label('Asal Komisariat')
-                            ->relationship('komisariat', 'nama')
+                            ->relationship('user.komisariat', 'nama')
                             ->searchable()
                             ->preload()
-                            ->createOptionForm([
-                                TextInput::make('nama')
-                                ->label('Nama Komisariat')
-                                    ->required(),
-                            ])
-                            ->required(),
+                            ->required()
+                            ->default($user->komisariat_id)
+                            ->disabled(! $user->hasRole('Super Admin')),
                         Textarea::make('alamat')
                             ->required()
                             ->columnSpanFull(),

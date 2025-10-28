@@ -8,7 +8,7 @@ class Anggota extends Model
 {
     protected $fillable = [
         'nama',
-        'komisariat_id',
+        'user_id',
         'alamat',
         'latitude',
         'longitude',
@@ -17,6 +17,10 @@ class Anggota extends Model
     public function komisariat()
     {
         return $this->belongsTo(Komisariat::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
 }

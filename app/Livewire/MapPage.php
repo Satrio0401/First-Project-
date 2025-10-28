@@ -13,7 +13,6 @@ class MapPage extends Component
 {
     public function render()
     {
-        // Ambil data anggota, group berdasarkan kecamatan
         $kecamatanData = Anggota::selectRaw('alamat as kecamatan, AVG(latitude) as latitude, AVG(longitude) as longitude, COUNT(*) as jumlah')
             ->groupBy('alamat')
             ->get();

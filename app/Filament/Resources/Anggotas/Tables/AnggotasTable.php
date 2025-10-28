@@ -19,7 +19,7 @@ class AnggotasTable
                     ->label('Foto')
                     ->square()
                     ->defaultImageUrl(url('/images/default-news.png')),
-                TextColumn::make('nama')
+                TextColumn::make('user.name')
                     ->label('Nama')
                     ->searchable()
                     ->sortable()
@@ -31,7 +31,7 @@ class AnggotasTable
                     ->sortable()
                     ->limit(50)
                     ->wrap(),
-                TextColumn::make('komisariat.nama')
+                TextColumn::make('user.komisariat.nama')
                     ->label('Komisariat')
                     ->searchable()
                     ->sortable()

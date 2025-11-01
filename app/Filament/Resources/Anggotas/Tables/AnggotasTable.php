@@ -2,12 +2,12 @@
 
 namespace App\Filament\Resources\Anggotas\Tables;
 
+use Filament\Tables;
+use Filament\Tables\Table;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Actions\EditAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
-use Filament\Actions\EditAction;
-use Filament\Tables\Columns\ImageColumn;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Table;
 
 class AnggotasTable
 {
@@ -15,28 +15,80 @@ class AnggotasTable
     {
         return $table
             ->columns([
-                ImageColumn::make('foto')
-                    ->label('Foto')
-                    ->square()
-                    ->defaultImageUrl(url('/images/default-news.png')),
+                // Nama user
                 TextColumn::make('user.name')
                     ->label('Nama')
                     ->searchable()
                     ->sortable()
-                    ->limit(50)
                     ->wrap(),
+
+                // Jenis Kelamin
+                TextColumn::make('kelamin')
+                    ->label('Jenis Kelamin')
+                    ->sortable(),
+
+                // Tempat & Tanggal Lahir
+                TextColumn::make('tempat_lahir')
+                    ->label('Tempat Lahir'),
+                TextColumn::make('tanggal_lahir')
+                    ->label('Tanggal Lahir')
+                    ->date('d M Y'),
+
+                // Alamat
                 TextColumn::make('alamat')
                     ->label('Alamat')
-                    ->searchable()
-                    ->sortable()
                     ->limit(50)
                     ->wrap(),
+
+                // Nomor WhatsApp
+                TextColumn::make('no_wa')
+                    ->label('No. WA')
+                    ->copyable()
+                    ->searchable(),
+
+                // Jurusan
+                TextColumn::make('jurusan.nama_jurusan')
+                    ->label('Jurusan')
+                    ->sortable()
+                    ->wrap(),
+
+                // Tahun masuk kuliah
+                TextColumn::make('tahun_masuk_kuliah')
+                    ->label('Masuk Kuliah')
+                    ->sortable(),
+
+                // Data pelatihan LK
+                TextColumn::make('tahun_lk1')
+                    ->label('LK 1')
+                    ->sortable(),
+
+                TextColumn::make('tahun_lk2')
+                    ->label('LK 2')
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+
+                TextColumn::make('tahun_lk3')
+                    ->label('LK 3')
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+
+                TextColumn::make('tahun_lkk')
+                    ->label('LKK')
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+
+                // Komisariat (relasi via user)
                 TextColumn::make('user.komisariat.nama')
                     ->label('Komisariat')
-                    ->searchable()
                     ->sortable()
-                    ->limit(50)
                     ->wrap(),
+
+                // Prestasi
+                TextColumn::make('prestasi')
+                    ->label('Prestasi')
+                    ->limit(50)
+                    ->wrap()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //

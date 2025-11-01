@@ -14,14 +14,26 @@ return new class extends Migration
         Schema::create('anggotas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->text('alamat');
-            $table->string('foto')->nullable();
-            $table->decimal('latitude', 10, 7);
-            $table->decimal('longitude', 10, 7);
+            $table->text('alamat')->nullable();
+            $table->enum('kelamin', ['Laki-laki', 'Perempuan']);
+            $table->string('tempat_lahir')->nullable();
+            $table->date('tanggal_lahir')->nullable();
+            $table->string('no_wa')->nullable();
+            $table->year('tahun_masuk_kuliah')->nullable();
+            $table->foreignId('jurusan_id')->nullable()->constrained('jurusans')->nullOnDelete();
+            $table->year('tahun_lk1')->nullable();
+            $table->year('tahun_lk2')->nullable();
+            $table->string('cabang_lk2')->nullable();
+            $table->year('tahun_lk3')->nullable();
+            $table->string('badko_lk3')->nullable();
+            $table->year('tahun_lkk')->nullable();
+            $table->string('cabang_lkk')->nullable();
+            $table->text('prestasi')->nullable();
+            $table->decimal('latitude', 10, 7)->nullable();
+            $table->decimal('longitude', 10, 7)->nullable();
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      */

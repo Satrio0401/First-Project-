@@ -73,25 +73,28 @@ class DatabaseSeeder extends Seeder
         Anggota::create([
             'user_id' => $anggota1->id,
             'alamat' => 'Pontianak Selatan',
+            'kelamin'=> 'Laki-laki',
             'latitude' => -0.0512,
             'longitude' => 109.3479,
-            'foto' => null
+
         ]);
 
         Anggota::create([
             'user_id' => $anggota2->id,
             'alamat' => 'Pontianak Kota',
+            'kelamin'=> 'Laki-laki',
             'latitude' => -0.0255,
             'longitude' => 109.3398,
-            'foto' => null
+
         ]);
 
         Anggota::create([
             'user_id' => $anggota3->id,
             'alamat' => 'Pontianak Timur',
+            'kelamin'=> 'Laki-laki',
             'latitude' => -0.0050,
             'longitude' => 109.3600,
-            'foto' => null
+
         ]);
         // Seed organization data
         $this->call([

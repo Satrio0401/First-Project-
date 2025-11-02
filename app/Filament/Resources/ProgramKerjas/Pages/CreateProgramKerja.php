@@ -8,4 +8,8 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateProgramKerja extends CreateRecord
 {
     protected static string $resource = ProgramKerjaResource::class;
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 }

@@ -8,4 +8,8 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateKomisariat extends CreateRecord
 {
     protected static string $resource = KomisariatResource::class;
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 }

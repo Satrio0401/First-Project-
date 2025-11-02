@@ -1,18 +1,24 @@
 <x-dynamic-component :component="$getFieldWrapperView()" :field="$field">
+    {{-- 1. Ubah cara inisialisasi x-data dan hapus event listener --}}
     <div x-data="mapLocationPicker({
         state: $wire.entangle('{{ $getStatePath() }}'),
         lat: {{ optional($getState())['lat'] ?? -0.0275 }},
         lng: {{ optional($getState())['lng'] ?? 109.3425 }}
-    })" @google-maps-loaded.window="initMap()" wire:ignore>
+    })" wire:ignore>
         <div x-ref="map" class="w-full rounded-md" style="height: 400px;"></div>
     </div>
 </x-dynamic-component>
+
 @once
     <script>
-        window.initMapPicker = function() {
+        // 2. Ubah callback Google Maps untuk memanggil method di dalam komponen Alpine
+        function initMapPicker() {
+            // Dispatch event yang bisa didengarkan oleh komponen Alpine
             window.dispatchEvent(new CustomEvent('google-maps-loaded'));
-        };
+        }
+
         document.addEventListener('alpine:init', () => {
+            // 3. Ubah struktur komponen Alpine
             Alpine.data('mapLocationPicker', ({
                 state,
                 lat,
@@ -21,7 +27,33 @@
                 map: null,
                 marker: null,
                 state: state,
+
+                // 'init' adalah method spesial di Alpine yang berjalan saat komponen diinisialisasi
+                init() {
+                    // Dengarkan event dari Google Maps, lalu panggil initMap
+                    window.addEventListener('google-maps-loaded', () => {
+                        this.initMap();
+                    });
+
+                    // Jika Google Maps sudah termuat sebelumnya, langsung panggil initMap
+                    if (window.google && window.google.maps) {
+                        this.initMap();
+                    }
+                    this.$watch('state', (newState) => {
+                        // Cek jika state baru valid dan berbeda dari posisi marker saat ini
+                        if (newState && newState.lat && newState.lng) {
+                            const newPosition = new google.maps.LatLng(newState.lat, newState.lng);
+                            if (!this.marker.getPosition().equals(newPosition)) {
+                                this.updateMapFromState(newPosition);
+                            }
+                        }
+                    });
+                },
+
                 initMap() {
+                    // Guard clause untuk mencegah inisialisasi ganda
+                    if (this.map) return;
+
                     this.map = new google.maps.Map(this.$refs.map, {
                         center: {
                             lat: lat,
@@ -47,13 +79,18 @@
                         this.updateMarkerPosition(event.latLng);
                     });
                 },
+
                 updateMarkerPosition(latLng) {
                     this.marker.setPosition(latLng);
-                    const newPosition = {
+                    this.state = {
                         lat: latLng.lat(),
                         lng: latLng.lng(),
                     };
-                    this.state = newPosition;
+                },
+
+                updateMapFromState(newPosition) {
+                    this.marker.setPosition(newPosition);
+                    this.map.panTo(newPosition);
                 }
             }));
         });

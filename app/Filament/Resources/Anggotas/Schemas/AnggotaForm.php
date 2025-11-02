@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Filament\Resources\Penguruses\Schemas;
+namespace App\Filament\Resources\Anggotas\Schemas;
 
 use App\Filament\Forms\Components\MapLocationPicker;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Hidden;
-use Filament\Forms\Components\Toggle;
+use Filament\Schemas\Components\Utilities\Get;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\DatePicker;
@@ -25,9 +25,9 @@ class AnggotaForm
                 Section::make('Informasi Anggota')
                     ->schema([
                         TextInput::make('nama')
-                        ->label('Nama Lengkap')
-                        ->required()
-                        ->maxLength(255),
+                            ->label('Nama Lengkap')
+                            ->required()
+                            ->maxLength(255),
 
                         Select::make('komisariat_id')
                             ->label('Asal Komisariat')
@@ -130,15 +130,42 @@ class AnggotaForm
                         MapLocationPicker::make('location')
                             ->label('Pilih Lokasi di Peta')
                             ->columnSpanFull()
-                            ->live()
+                            ->live( debounce: 150)
+                            ->afterStateHydrated(function (Get $get, callable $set) {
+                                $latitude = $get('latitude');
+                                $longitude = $get('longitude');
+
+                                if ($latitude && $longitude) {
+                                    $set('location', ['lat' => $latitude, 'lng' => $longitude]);
+                                }
+                            })
                             ->afterStateUpdated(function (callable $set, ?array $state): void {
                                 if ($state) {
                                     $set('latitude', $state['lat']);
                                     $set('longitude', $state['lng']);
                                 }
                             }),
-                        Hidden::make('latitude'),
-                        Hidden::make('longitude'),
+                        TextInput::make('latitude')
+                            ->numeric()
+                            ->live(onBlur: true) // Gunakan onBlur agar tidak terlalu sering update
+                            ->afterStateUpdated(function (Get $get, callable $set) {
+                                // Update 'location' saat latitude diubah
+                                $set('location', [
+                                    'lat' => (float)$get('latitude'),
+                                    'lng' => (float)$get('longitude'),
+                                ]);
+                            }),
+
+                        TextInput::make('longitude')
+                            ->numeric()
+                            ->live(onBlur: true) // Gunakan onBlur agar tidak terlalu sering update
+                            ->afterStateUpdated(function (Get $get, callable $set) {
+                                // Update 'location' saat longitude diubah
+                                $set('location', [
+                                    'lat' => (float)$get('latitude'),
+                                    'lng' => (float)$get('longitude'),
+                                ]);
+                            }),
                     ]),
             ]);
     }

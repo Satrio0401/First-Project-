@@ -18,7 +18,7 @@ class PengurusResource extends Resource
 {
     protected static ?string $model = Pengurus::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::UserGroup;
 
     protected static ?string $navigationLabel = 'Pengurus';
 

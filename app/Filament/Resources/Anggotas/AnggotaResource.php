@@ -6,7 +6,7 @@ use App\Filament\Resources\Anggotas\Pages\CreateAnggota;
 use App\Filament\Resources\Anggotas\Pages\EditAnggota;
 use App\Filament\Resources\Anggotas\Pages\ListAnggotas;
 use App\Filament\Resources\Anggotas\Tables\AnggotasTable;
-use App\Filament\Resources\Penguruses\Schemas\AnggotaForm;
+use App\Filament\Resources\Anggotas\Schemas\AnggotaForm;
 use Illuminate\Database\Eloquent\Builder;
 use App\Models\Anggota;
 use BackedEnum;
@@ -19,7 +19,7 @@ class AnggotaResource extends Resource
 {
     protected static ?string $model = Anggota::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::Users;
 
     protected static ?string $recordTitleAttribute = 'Anggota';
 

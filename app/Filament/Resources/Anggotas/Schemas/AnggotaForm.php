@@ -31,11 +31,10 @@ class AnggotaForm
 
                         Select::make('komisariat_id')
                             ->label('Asal Komisariat')
-                            ->relationship('user.komisariat', 'nama')
+                            ->relationship('komisariat', 'nama')
                             ->searchable()
                             ->preload()
                             ->required()
-                            ->default($user->komisariat_id)
                             ->disabled(! $user->hasRole('Super Admin')),
 
                         Textarea::make('alamat')

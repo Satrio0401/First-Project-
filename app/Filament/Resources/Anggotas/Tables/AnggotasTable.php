@@ -15,12 +15,11 @@ class AnggotasTable
     {
         return $table
             ->columns([
-                // Nama user
-                TextColumn::make('user.name')
-                    ->label('Nama')
-                    ->searchable()
-                    ->sortable()
-                    ->wrap(),
+                TextColumn::make('nama')
+                ->label('Nama')
+                ->searchable()
+                ->sortable()
+                ->wrap(),
 
                 // Jenis Kelamin
                 TextColumn::make('kelamin')
@@ -77,11 +76,11 @@ class AnggotasTable
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
-                // Komisariat (relasi via user)
-                TextColumn::make('user.komisariat.nama')
+                TextColumn::make('komisariat.nama')
                     ->label('Komisariat')
                     ->sortable()
                     ->wrap(),
+                
 
                 // Prestasi
                 TextColumn::make('prestasi')

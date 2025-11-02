@@ -26,6 +26,8 @@ class AuthServiceProvider extends ServiceProvider
         Galeri::class => GaleriPolicy::class,
         ProgramKerja::class => ProgramKerjaPolicy::class,
         Pengurus::class => PengurusPolicy::class,
+        Komisariat::class => KomisariatPolicy::class,
+        User::class => UserPolicy::class,
     ];
 
     /**

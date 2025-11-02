@@ -6,14 +6,11 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('anggotas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->string('nama');
             $table->text('alamat')->nullable();
             $table->enum('kelamin', ['Laki-laki', 'Perempuan']);
             $table->string('tempat_lahir')->nullable();
@@ -22,6 +19,7 @@ return new class extends Migration
             $table->year('tahun_masuk_kuliah')->nullable();
             $table->foreignId('jurusan_id')->nullable()->constrained('jurusans')->nullOnDelete();
             $table->year('tahun_lk1')->nullable();
+            $table->foreignId('komisariat_id')->nullable()->constrained('komisariats')->nullOnDelete();
             $table->year('tahun_lk2')->nullable();
             $table->string('cabang_lk2')->nullable();
             $table->year('tahun_lk3')->nullable();
@@ -34,9 +32,7 @@ return new class extends Migration
             $table->timestamps();
         });
     }
-    /**
-     * Reverse the migrations.
-     */
+
     public function down(): void
     {
         Schema::dropIfExists('anggotas');

@@ -7,7 +7,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Placeholder;
 use App\Models\Anggota;
-
+use Filament\Infolists\Components\TextEntry;
 
 class UserForm
 {
@@ -18,7 +18,7 @@ class UserForm
             Select::make('anggota_id')
                 ->label('Anggota')
                 ->options(
-                    fn () => Anggota::whereDoesntHave('user')
+                    fn() => Anggota::whereDoesntHave('user')
                         ->pluck('nama', 'id')
                 )
                 ->searchable()
@@ -36,7 +36,7 @@ class UserForm
             // 🔹 Komisariat
             Select::make('komisariat_id')
                 ->label('Komisariat')
-                ->relationship('komisariat', 'nama')
+                ->relationship('anggota.komisariat', 'nama')
                 ->searchable()
                 ->preload(),
 
@@ -44,8 +44,8 @@ class UserForm
             TextInput::make('password')
                 ->label('Password')
                 ->password()
-                ->dehydrateStateUsing(fn ($state) => filled($state) ? bcrypt($state) : null)
-                ->required(fn (string $context): bool => $context === 'create')
+                ->dehydrateStateUsing(fn($state) => filled($state) ? bcrypt($state) : null)
+                ->required(fn(string $context): bool => $context === 'create')
                 ->revealable(),
 
             // 🔹 Role Spatie
@@ -57,9 +57,10 @@ class UserForm
                 ->required(),
 
             // 🔹 Nama Anggota ditampilkan otomatis (tidak bisa diedit)
-            Placeholder::make('nama_anggota')
+            TextEntry::make('nama_anggota')
                 ->label('Nama Anggota')
-                ->content(fn ($record) => $record?->anggota?->nama ?? '-'),
+                ->state(fn($record) => $record?->anggota?->nama ?? '-') 
+                ->dehydrated(false),
         ]);
     }
 }

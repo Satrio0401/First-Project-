@@ -22,10 +22,10 @@ class KomisariatsTable
                     ->wrap()
                     ->searchable(),
                 TextColumn::make('latitude')
-                    ->numeric()
+                    ->numeric(decimalPlaces: 8)
                     ->sortable(),
                 TextColumn::make('longitude')
-                    ->numeric()
+                    ->numeric(decimalPlaces: 8)
                     ->sortable(),
                 TextColumn::make('created_at')
                     ->dateTime()

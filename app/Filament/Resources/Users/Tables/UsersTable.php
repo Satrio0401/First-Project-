@@ -28,7 +28,7 @@ class UsersTable
                     ->badge() // biar tampil seperti label warna
                     ->separator(', '),
 
-                TextColumn::make('komisariat.nama')
+                TextColumn::make('anggota.komisariat.nama')
                     ->label('Komisariat')
                     ->searchable()
                     ->sortable(),

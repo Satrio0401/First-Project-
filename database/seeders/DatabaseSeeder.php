@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use App\Models\Anggota;
+use App\Models\Jurusan;
 use App\Models\Komisariat;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
@@ -17,58 +18,83 @@ class DatabaseSeeder extends Seeder
         // === Komisariat ===
         $komisariatFT = Komisariat::firstOrCreate(['nama' => 'Komisariat Teknik UNTAN']);
         $komisariatFISIP = Komisariat::firstOrCreate(['nama' => 'Komisariat FISIP UNTAN']);
+        $jurusanTeknikArsitektur = Jurusan::create(['nama_jurusan' => 'Teknik Arsitektur']);
+        $jurusanTeknikKimia = Jurusan::create(['nama_jurusan' => 'Teknik Kimia']);
+        $jurusanTeknikIndustri = Jurusan::create(['nama_jurusan' => 'Teknik Industri']);
 
         // === Roles ===
         $superAdminRole = Role::firstOrCreate(['name' => 'Super Admin']);
         $adminRole = Role::firstOrCreate(['name' => 'Admin Komisariat']);
         $userRole = Role::firstOrCreate(['name' => 'Anggota']);
-
+        $superAdminAnggota = Anggota::create([
+            'nama' => 'Super Admin',
+            'kelamin' => 'Laki-laki',
+        ]);
         // === Super Admin (tanpa anggota) ===
         $superAdmin = User::create([
             'email' => 'admin@organization.com',
             'password' => bcrypt('password'),
+            'anggota_id' => $superAdminAnggota->id,
         ]);
         $superAdmin->assignRole($superAdminRole);
 
         // === Buat beberapa anggota terlebih dahulu ===
         $anggota1 = Anggota::create([
-            'nama' => 'Budi Santoso',
-            'alamat' => 'Pontianak Selatan',
-            'kelamin' => 'Laki-laki',
-            'komisariat_id' => $komisariatFISIP->id,
+            'nama' => 'Dona Agnessia',
+            'kelamin' => 'Perempuan',
+            'tempat_lahir' => 'Tekarang',
+            'tanggal_lahir'=>'2006-4-1',
+            'alamat' => 'Desa Tekarang, Kabupaten Sambas',
+            'no_wa'=>'085754400764',
+            'tahun_masuk_kuliah' => '2024',
+            'jurusan_id' => $jurusanTeknikArsitektur->id,
+            'tahun_lk1' => '2024',
+            'komisariat_id' => $komisariatFT->id,
             'latitude' => -0.0512,
             'longitude' => 109.3479,
         ]);
 
         $anggota2 = Anggota::create([
-            'nama' => 'Siti Aminah',
-            'alamat' => 'Pontianak Kota',
+            'nama' => 'Andi nurinayah',
             'kelamin' => 'Perempuan',
-            'komisariat_id' => $komisariatFISIP->id,
+            'tempat_lahir' => 'Makassar',
+            'tanggal_lahir'=>'2006-10-3',
+            'alamat' => 'Tanjung Raya',
+            'no_wa'=>'081523905320',
+            'tahun_masuk_kuliah' => '2024',
+            'jurusan_id' => $jurusanTeknikKimia->id,
+            'tahun_lk1' => '2024',
+            'komisariat_id' => $komisariatFT->id,
             'latitude' => -0.0255,
             'longitude' => 109.3398,
         ]);
 
         $anggota3 = Anggota::create([
-            'nama' => 'Rahmat Hidayat',
-            'alamat' => 'Pontianak Timur',
+            'nama' => 'Raihan Ramdhan Pratama',
             'kelamin' => 'Laki-laki',
-            'komisariat_id' => $komisariatFISIP->id,
-            'latitude' => -0.0050,
-            'longitude' => 109.3600,
+            'tempat_lahir' => 'Pontianak',
+            'tanggal_lahir'=>'2005-10-5',
+            'alamat' => 'Jl. Wonobaru Gang Wonodadi 3 jalur D',
+            'no_wa'=>'0881010948498',
+            'tahun_masuk_kuliah' => '2024',
+            'jurusan_id' => $jurusanTeknikKimia->id,
+            'tahun_lk1' => '2024',
+            'komisariat_id' => $komisariatFT->id,
+            'latitude' => -0.0255,
+            'longitude' => 109.3398,
         ]);
 
         // === Admin untuk Komisariat ===
         $adminTeknikAnggota = Anggota::create([
             'nama' => 'Admin Teknik',
-            'alamat' => 'Pontianak',
             'kelamin' => 'Laki-laki',
+            'komisariat_id' => $komisariatFT->id,
         ]);
 
         $adminFisipAnggota = Anggota::create([
             'nama' => 'Admin FISIP',
-            'alamat' => 'Pontianak',
             'kelamin' => 'Laki-laki',
+            'komisariat_id' => $komisariatFISIP->id,
         ]);
 
         // === Buat user dan hubungkan ke anggota ===

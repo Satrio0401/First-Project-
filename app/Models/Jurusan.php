@@ -9,7 +9,7 @@ class Jurusan extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nama'];
+    protected $guarded = [];
 
     public function anggotas()
     {

@@ -17,12 +17,13 @@ use Filament\Pages\Page;
 use Filament\Notifications\Notification;
 use Filament\Support\Icons\Heroicon;
 use BackedEnum;
+use UnitEnum;
 use Filament\Schemas\Schema;
 
 class OrganizationSettings extends Page implements HasForms
 {
     use InteractsWithForms;
-
+    protected static string | UnitEnum | null $navigationGroup = 'Settings';
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedCog6Tooth;
 
     protected static ?string $navigationLabel = 'Pengaturan Organisasi';

@@ -11,6 +11,7 @@ use App\Filament\Resources\Galeris\Schemas\GaleriInfolist;
 use App\Filament\Resources\Galeris\Tables\GalerisTable;
 use App\Models\Galeri;
 use BackedEnum;
+use UnitEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -19,6 +20,8 @@ use Filament\Tables\Table;
 class GaleriResource extends Resource
 {
     protected static ?string $model = Galeri::class;
+    
+    protected static string | UnitEnum | null $navigationGroup = 'Settings';
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::Photo;
 

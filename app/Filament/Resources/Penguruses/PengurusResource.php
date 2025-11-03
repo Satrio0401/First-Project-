@@ -9,6 +9,7 @@ use App\Filament\Resources\Penguruses\Schemas\PengurusForm;
 use App\Filament\Resources\Penguruses\Tables\PengurusesTable;
 use App\Models\Pengurus;
 use BackedEnum;
+use UnitEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -17,6 +18,7 @@ use Filament\Tables\Table;
 class PengurusResource extends Resource
 {
     protected static ?string $model = Pengurus::class;
+    protected static string | UnitEnum | null $navigationGroup = 'Settings';
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::UserGroup;
 

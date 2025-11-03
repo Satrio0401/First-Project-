@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Anggotas\Tables;
 
+use Carbon\Carbon;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
@@ -26,12 +27,21 @@ class AnggotasTable
                     ->label('Jenis Kelamin')
                     ->sortable(),
 
-                // Tempat & Tanggal Lahir
                 TextColumn::make('tempat_lahir')
-                    ->label('Tempat Lahir'),
-                TextColumn::make('tanggal_lahir')
-                    ->label('Tanggal Lahir')
-                    ->date('d M Y'),
+                    ->label('Tempat, Tanggal Lahir')
+                    ->formatStateUsing(function ($record) {
+                        // Jika tanggal lahir kosong, hanya tampilkan tempat lahir
+                        if (empty($record->tanggal_lahir)) {
+                            return $record->tempat_lahir ?? '-';
+                        }
+                        // Format tanggal ke Bahasa Indonesia
+                        $tanggal = Carbon::parse($record->tanggal_lahir)
+                            ->locale('id')
+                            ->translatedFormat('d F Y'); // 'F' untuk nama bulan lengkap
+                        // Gabungkan keduanya
+                        return $record->tempat_lahir . ', ' . $tanggal;
+                    })
+                    ->searchable(['tempat_lahir', 'tanggal_lahir']), // Buat bisa dicari
 
                 // Alamat
                 TextColumn::make('alamat')

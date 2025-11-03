@@ -6,8 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Komisariat extends Model
 {
-    protected $fillable = [
-        'nama',
+    protected $guarded = [
     ];
     public function anggotas()
     {

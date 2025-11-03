@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Anggotas\Schemas;
 
 use App\Filament\Forms\Components\MapLocationPicker;
+use App\Filament\Forms\Components\MapLocationPickerJsVanilla;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Hidden;
@@ -127,45 +128,21 @@ class AnggotaForm
                 Section::make('Lokasi Geospasial')
                     ->description('Klik atau geser pin di peta untuk menentukan lokasi.')
                     ->schema([
-                        MapLocationPicker::make('location')
+                        MapLocationPickerJsVanilla::make('location')
                             ->label('Pilih Lokasi di Peta')
                             ->columnSpanFull()
-                            ->live( debounce: 150)
-                            ->afterStateHydrated(function (Get $get, callable $set) {
-                                $latitude = $get('latitude');
-                                $longitude = $get('longitude');
-
-                                if ($latitude && $longitude) {
-                                    $set('location', ['lat' => $latitude, 'lng' => $longitude]);
-                                }
-                            })
-                            ->afterStateUpdated(function (callable $set, ?array $state): void {
-                                if ($state) {
-                                    $set('latitude', $state['lat']);
-                                    $set('longitude', $state['lng']);
-                                }
-                            }),
+                            ->dehydrated(false)
+                            ->latitudeId('anggota-latitude')
+                            ->longitudeId('anggota-longitude'),
                         TextInput::make('latitude')
+                            ->id('anggota-latitude')
                             ->numeric()
-                            ->live(onBlur: true) // Gunakan onBlur agar tidak terlalu sering update
-                            ->afterStateUpdated(function (Get $get, callable $set) {
-                                // Update 'location' saat latitude diubah
-                                $set('location', [
-                                    'lat' => (float)$get('latitude'),
-                                    'lng' => (float)$get('longitude'),
-                                ]);
-                            }),
+                            ->required(),
 
                         TextInput::make('longitude')
+                            ->id('anggota-longitude')
                             ->numeric()
-                            ->live(onBlur: true) // Gunakan onBlur agar tidak terlalu sering update
-                            ->afterStateUpdated(function (Get $get, callable $set) {
-                                // Update 'location' saat longitude diubah
-                                $set('location', [
-                                    'lat' => (float)$get('latitude'),
-                                    'lng' => (float)$get('longitude'),
-                                ]);
-                            }),
+                            ->required(),
                     ]),
             ]);
     }

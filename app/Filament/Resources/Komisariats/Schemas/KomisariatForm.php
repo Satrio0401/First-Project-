@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Komisariats\Schemas;
 
 use App\Filament\Forms\Components\MapLocationPicker;
+use App\Filament\Forms\Components\MapLocationPickerJsVanilla;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Hidden;
@@ -31,20 +32,21 @@ class KomisariatForm
                 Section::make('Lokasi Geospasial')
                     ->description('Klik atau geser pin di peta untuk menentukan lokasi.')
                     ->schema([
-                        MapLocationPicker::make('location')
+                        MapLocationPickerJsVanilla::make('location')
                             ->label('Pilih Lokasi di Peta')
                             ->columnSpanFull()
-                            ->live()
-                            ->afterStateUpdated(function (callable $set, ?array $state): void {
-                                if ($state) {
-                                    $set('latitude', $state['lat']);
-                                    $set('longitude', $state['lng']);
-                                }
-                            }),
+                            ->dehydrated(false)
+                            ->latitudeId('komisariat-latitude')
+                            ->longitudeId('komisariat-longitude'),
 
-                        Hidden::make('latitude'),
-                        Hidden::make('longitude'),
-
+                        TextInput::make('latitude')
+                            ->id('komisariat-latitude')
+                            ->numeric()
+                            ->required(),
+                        TextInput::make('longitude')
+                            ->id('komisariat-longitude')
+                            ->numeric()
+                            ->required(),
                     ]),
             ]);
     }

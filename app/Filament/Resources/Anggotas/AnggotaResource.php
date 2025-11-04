@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Anggotas;
 
 use App\Filament\Resources\Anggotas\Pages\CreateAnggota;
+use App\Filament\Resources\Anggotas\Pages\CreateUserFromAnggota;
 use App\Filament\Resources\Anggotas\Pages\EditAnggota;
 use App\Filament\Resources\Anggotas\Pages\ListAnggotas;
 use App\Filament\Resources\Anggotas\Tables\AnggotasTable;
@@ -46,6 +47,7 @@ class AnggotaResource extends Resource
             'index' => ListAnggotas::route('/'),
             'create' => CreateAnggota::route('/create'),
             'edit' => EditAnggota::route('/{record}/edit'),
+            'create-user-from-anggota' => CreateUserFromAnggota::route('/{record}/create-user-from-anggota'),
         ];
     }
 

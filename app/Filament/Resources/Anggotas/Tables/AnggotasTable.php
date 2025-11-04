@@ -2,7 +2,10 @@
 
 namespace App\Filament\Resources\Anggotas\Tables;
 
+use App\Filament\Resources\Anggotas\AnggotaResource;
+use App\Models\Anggota;
 use Carbon\Carbon;
+use Filament\Actions\Action;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
@@ -109,6 +112,17 @@ class AnggotasTable
             ])
             ->recordActions([
                 EditAction::make(),
+                
+                Action::make('buatUser')
+                ->label('Buat User')
+                ->icon('heroicon-o-user-plus')
+                ->color('success')
+                ->visible(function (Anggota $record): bool {
+                        $isSuperAdmin = auth()->user()->hasRole('Super Admin');
+                        $hasNoUser = is_null($record->user);
+                        return $isSuperAdmin && $hasNoUser;
+                    })
+                ->url(fn ($record) => AnggotaResource::getUrl('create-user-from-anggota', ['record' => $record])),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

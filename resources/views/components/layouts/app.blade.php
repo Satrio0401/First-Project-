@@ -23,7 +23,7 @@
     <nav x-data="{ open: false, isScrolled: false }" x-init="window.addEventListener('scroll', () => { isScrolled = window.scrollY > 10 })"
         :class="isScrolled
             ?
-            'bg-gradient-to-r from-emerald-700 via-green-800 to-teal-900 shadow-lg' :
+            'bg-linear-to-r from-emerald-700 via-green-800 to-teal-900 shadow-lg' :
             'bg-white border-b border-gray-200'"
         class="transition-all duration-300 sticky top-0 z-50">
 
@@ -42,7 +42,7 @@
                     </div>
                 </div>
 
-                <div class="hidden sm:ml-6 sm:flex sm:space-x-8 py-4">
+                <div class="hidden sm:ml-6 nav:flex sm:space-x-8 py-4">
                     @php
                         $links = [
                             ['route' => 'home', 'label' => 'Beranda'],
@@ -65,9 +65,27 @@
                             {{ $link['label'] }}
                         </a>
                     @endforeach
+                    <div class="hidden sm:flex sm:items-center sm:ml-6">
+                        @auth
+                            <a href="{{ url('/dashboard') }}"
+                                class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium"
+                                :class="isScrolled ? 'bg-white/20 hover:bg-white/30 text-white' :
+                                    'bg-green-700 hover:bg-green-800 text-white'">
+                                Dashboard
+                            </a>
+                        @else
+                            <a href="{{ url('/dashboard') }}"
+                                class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium"
+                                :class="isScrolled ? 'bg-white/20 hover:bg-white/30 text-white' :
+                                    'bg-green-700 hover:bg-green-800 text-white'">
+                                Login
+                            </a>
+                        @endauth
+                    </div>
                 </div>
 
-                <div class="flex items-center sm:hidden">
+
+                <div class="flex items-center nav:hidden">
                     <button @click="open = !open" type="button"
                         :class="isScrolled ? 'text-white hover:bg-white/20' :
                             'text-gray-400 hover:text-gray-500 hover:bg-gray-100'"
@@ -87,9 +105,9 @@
 
 
         <!-- Mobile menu -->
-        <div x-show="open" @click.away="open = false" class="sm:hidden">
+        <div x-show="open" @click.away="open = false" class="nav:hidden">
             <div class="pt-2 pb-3 space-y-1">
-                <a href="{{ route('home') }}"
+                <a href="{{ route('home') }}" wire:navigate
                     class="block pl-3 pr-4 py-2 border-l-4 {{ request()->routeIs('home') ? 'bg-green-50 border-green-700 text-green-700' : 'border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800' }} text-base font-medium">
                     Beranda
                 </a>
@@ -117,6 +135,19 @@
                     class="block pl-3 pr-4 py-2 border-l-4 {{ request()->routeIs('program-kerja') ? 'bg-green-50 border-green-700 text-green-700' : 'border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800' }} text-base font-medium">
                     Program Kerja
                 </a>
+                <div class="border-t border-gray-200 pt-3 pb-2">
+                    @auth
+                        <a href="{{ url('/dashboard') }}"
+                            class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800">
+                            Dashboard
+                        </a>
+                    @else
+                        <a href="{{ url('/dashboard') }}"
+                            class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800">
+                            Login
+                        </a>
+                    @endauth
+                </div>
             </div>
         </div>
     </nav>

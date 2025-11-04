@@ -72,7 +72,7 @@
                             @if($pengurus->foto)
                                 <img src="{{ $pengurus->foto_url }}" alt="{{ $pengurus->nama }}" class="w-full h-48 object-cover">
                             @else
-                                <div class="w-full h-48 bg-gradient-to-br from-teal-400 to-green-600 flex items-center justify-center">
+                                <div class="w-full h-48 bg-linear-to-br from-teal-400 to-green-600 flex items-center justify-center">
                                     <svg class="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
                                     </svg>

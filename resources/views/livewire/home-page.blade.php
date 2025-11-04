@@ -14,11 +14,11 @@
                     bernafaskan Islam.
                 </p>
                 <div class="flex justify-center md:justify-start space-x-4">
-                    <a href="#tentang"
+                    <a href="#tentang" wire:navigate
                         class="bg-white text-green-800 px-6 py-3 rounded-lg font-semibold hover:bg-green-50 transition">
                         Tentang Kami
                     </a>
-                    <a href="{{ route('berita.index') }}"
+                    <a href="{{ route('berita.index') }}" wire:navigate
                         class="bg-emerald-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-emerald-500 transition">
                         Berita Terbaru
                     </a>
@@ -26,7 +26,7 @@
             </div>
     
             <!-- Ilustrasi / Logo Kanan -->
-            <div class="md:w-1/2 flex justify-center hidden md:flex">
+            <div class="md:w-1/2 justify-center hidden md:flex">
                 <img src="LOGO-HMI.webp" alt="Ilustrasi HMI" class="w-45 md:w-45 drop-shadow-xl">
             </div>
         </div>
@@ -57,14 +57,14 @@
                         kreatif, dan berintegritas.
                     </p>
     
-                    <a href="{{ route('tentang') }}"
+                    <a href="{{ route('tentang') }}" wire:navigate
                         class="inline-block bg-green-700 hover:bg-green-800 text-white font-medium px-6 py-3 rounded-lg transition">
                         Pelajari Program Kami
                     </a>
                 </div>
     
                 <!-- Bagian Ilustrasi -->
-                <div class="flex justify-center hidden md:flex">
+                <div class=" justify-center hidden md:flex">
                     <div class="overflow-hidden border-4 border-green-500 rounded-lg w-full max-w-md">
                         <img src="hmi.jpg" alt="Ilustrasi Organisasi"
                             class="w-full h-auto object-cover transform transition-transform duration-500 hover:scale-105 hover:rotate-2">
@@ -105,7 +105,7 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between items-center mb-8">
                     <h2 class="text-3xl font-bold text-gray-900">Pengumuman Terbaru</h2>
-                    <a href="{{ route('berita.index', ['kategori' => 'Pengumuman']) }}"
+                    <a href="{{ route('berita.index', ['kategori' => 'Pengumuman']) }}" wire:navigate
                         class="text-[#0a826c] hover:text-[#086b57] font-semibold">
                         Lihat Semua →
                     </a>
@@ -113,7 +113,7 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     @foreach ($pengumuman as $berita)
-                        <a href="{{ route('berita.show', $berita->slug) }}"
+                        <a href="{{ route('berita.show', $berita->slug) }}" wire:navigate
                             class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
 
                             {{-- Gambar atau Placeholder --}}
@@ -122,7 +122,7 @@
                                     class="w-full h-48 object-cover">
                             @else
                                 <div
-                                    class="w-full h-48 bg-gradient-to-br from-green-500 to-emerald-700 flex items-center justify-center">
+                                    class="w-full h-48 bg-linear-to-br from-green-500 to-emerald-700 flex items-center justify-center">
                                     <svg class="w-16 h-16 text-white" fill="none" stroke="currentColor"
                                         viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -180,7 +180,7 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between items-center mb-8">
                     <h2 class="text-3xl font-bold text-gray-900">Program Kerja Aktif</h2>
-                    <a href="{{ route('program-kerja') }}" class="text-[#0a826c] hover:text-[#086b57] font-semibold">
+                    <a href="{{ route('program-kerja') }}" wire:navigate class="text-[#0a826c] hover:text-[#086b57] font-semibold">
                         Lihat Semua →
                     </a>
                 </div>
@@ -210,7 +210,7 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between items-center mb-8">
                     <h2 class="text-3xl font-bold text-gray-900">Artikel Terbaru</h2>
-                    <a href="{{ route('berita.index', ['kategori' => 'Artikel']) }}"
+                    <a href="{{ route('berita.index', ['kategori' => 'Artikel']) }}" wire:navigate
                         class="text-[#0a826c] hover:text-[#086b57] font-semibold">
                         Lihat Semua →
                     </a>
@@ -218,7 +218,7 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     @foreach ($artikel as $berita)
-                        <a href="{{ route('berita.show', $berita->slug) }}"
+                        <a href="{{ route('berita.show', $berita->slug) }}" wire:navigate
                             class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
 
                             {{-- Gambar atau Placeholder --}}
@@ -227,7 +227,7 @@
                                     class="w-full h-48 object-cover">
                             @else
                                 <div
-                                    class="w-full h-48 bg-gradient-to-br from-green-500 to-emerald-700 flex items-center justify-center">
+                                    class="w-full h-48 bg-linear-to-br from-green-500 to-emerald-700 flex items-center justify-center">
                                     <svg class="w-16 h-16 text-white" fill="none" stroke="currentColor"
                                         viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

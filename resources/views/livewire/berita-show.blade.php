@@ -4,9 +4,9 @@
         <div class="bg-white border-b border-green-700">
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
                 <nav class="flex text-sm text-gray-500">
-                    <a href="{{ route('home') }}" class="hover:text-blue-600">Beranda</a>
+                    <a href="{{ route('home') }}" wire:navigate class="hover:text-blue-600">Beranda</a>
                     <span class="mx-2">/</span>
-                    <a href="{{ route('berita.index') }}" class="hover:text-blue-600">Berita</a>
+                    <a href="{{ route('berita.index') }}" wire:navigate class="hover:text-blue-600">Berita</a>
                     <span class="mx-2">/</span>
                     <span class="text-gray-900">{{ Str::limit($berita->judul, 50) }}</span>
                 </nav>
@@ -90,7 +90,7 @@
                                 </a>
                             </div>
                         </div>
-                        <a href="{{ route('berita.index') }}"
+                        <a href="{{ route('berita.index') }}" wire:navigate
                             class="text-green-600 hover:text-green-800 font-semibold flex items-center mt-2">
                             <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -109,7 +109,7 @@
                 <h2 class="text-2xl font-bold text-gray-900 mb-6">Berita Terkait</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     @foreach ($relatedBerita as $item)
-                        <a href="{{ route('berita.show', $item->slug) }}"
+                        <a href="{{ route('berita.show', $item->slug) }}" wire:navigate
                             class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
                             @if ($item->gambar)
                                 <img src="{{ $item->gambar_url }}" alt="{{ $item->judul }}"

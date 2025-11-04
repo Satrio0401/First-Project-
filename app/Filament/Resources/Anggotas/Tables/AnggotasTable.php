@@ -9,6 +9,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Actions\EditAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
+use Filament\Tables\Columns\ImageColumn;
 
 class AnggotasTable
 {
@@ -16,6 +17,10 @@ class AnggotasTable
     {
         return $table
             ->columns([
+                ImageColumn::make('foto')
+                    ->label('Foto Anggota')
+                    ->square()
+                    ->defaultImageUrl(url('/images/default-avatar.png')),
                 TextColumn::make('nama')
                 ->label('Nama')
                 ->searchable()

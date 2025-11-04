@@ -35,4 +35,9 @@ class StatsOverview extends StatsOverviewWidget
                 ->color('primary'),
         ];
     }
+    public static function canView(): bool
+    {
+        // Periksa apakah user yang login punya role 'Super Admin'
+        return auth()->user()->hasRole('Super Admin');
+    }
 }

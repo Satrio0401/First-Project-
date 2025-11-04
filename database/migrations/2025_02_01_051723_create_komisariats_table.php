@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('komisariats', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
+            $table->string('foto')->nullable();
             $table->text('alamat')->nullable();
             $table->decimal('latitude', 10, 7)->nullable();
             $table->decimal('longitude', 10, 7)->nullable();

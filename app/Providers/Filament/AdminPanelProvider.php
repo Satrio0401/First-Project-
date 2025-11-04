@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Widgets\KomisariatChart;
 use App\Filament\Widgets\KomisariatMapWidget;
 use App\Filament\Widgets\StatsOverview;
 use Filament\Http\Middleware\Authenticate;
@@ -45,7 +46,7 @@ class AdminPanelProvider extends PanelProvider
                 AccountWidget::class,
                 // FilamentInfoWidget::class,
                 StatsOverview::class,
-                KomisariatMapWidget::class,
+                KomisariatChart::class,
             ])
             ->middleware([
                 EncryptCookies::class,

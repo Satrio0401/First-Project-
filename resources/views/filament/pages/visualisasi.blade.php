@@ -1,4 +1,4 @@
-<x-filament-widgets::widget>
+<x-filament-panels::page>
     <x-filament::card>
         <h2 class="text-lg font-semibold tracking-tight">Peta Sebaran Komisariat</h2>
     </x-filament::card>
@@ -6,7 +6,8 @@
         <div wire:ignore class="w-full rounded-md" id="komisariat-map" style="height: 500px;"
             data-komisariat="{{ $this->getKomisariatsData() }}"></div>
     </div>
-</x-filament-widgets::widget>
+</x-filament-panels::page>
+
 @once('google-maps-script')
     <script>
         // Definisikan fungsi ini di scope global agar bisa diakses oleh callback Google

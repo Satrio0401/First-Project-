@@ -74,8 +74,9 @@ class AnggotaForm
 
                         Select::make('jurusan_id')
                             ->label('Jurusan')
-                            ->relationship('jurusan', 'nama')
+                            ->relationship('jurusan', 'nama_jurusan')
                             ->searchable()
+                            ->preload()
                             ->nullable(),
 
                         TextInput::make('tahun_lk1')

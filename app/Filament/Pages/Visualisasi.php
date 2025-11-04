@@ -1,13 +1,16 @@
 <?php
 
-namespace App\Filament\Widgets;
+namespace App\Filament\Pages;
 
 use App\Models\Komisariat;
-use Filament\Widgets\Widget;
+use Filament\Pages\Page;
+use Filament\Support\Icons\Heroicon;
+use BackedEnum;
 
-class KomisariatMapWidget extends Widget
+class Visualisasi extends Page
 {
-    protected string $view = 'filament.widgets.komisariat-map-widget';
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::Map;
+    protected string $view = 'filament.pages.visualisasi';
     protected int | string | array $columnSpan = 'full';
     protected static bool $isLazy = false;
     public function getKomisariatsData(): string

@@ -11,6 +11,7 @@ return new class extends Migration
         Schema::create('anggotas', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
+            $table->string('foto')->nullable();
             $table->text('alamat')->nullable();
             $table->enum('kelamin', ['Laki-laki', 'Perempuan']);
             $table->string('tempat_lahir')->nullable();

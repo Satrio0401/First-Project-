@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Komisariats\Schemas;
 
 use App\Filament\Forms\Components\MapLocationPicker;
 use App\Filament\Forms\Components\MapLocationPickerJsVanilla;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Hidden;
@@ -26,6 +27,12 @@ class KomisariatForm
                         Textarea::make('alamat')
                             ->label('Alamat')
                             ->columnSpanFull(),
+                        FileUpload::make('foto')
+                            ->label('Foto Komisariat')
+                            ->image()
+                            ->directory('komisariat')
+                            ->imageEditor()
+                            ->maxSize(2048),
                     ])
                     ->columns(2),
 

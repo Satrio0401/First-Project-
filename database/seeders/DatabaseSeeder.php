@@ -133,7 +133,18 @@ class DatabaseSeeder extends Seeder
             'anggota_id' => $anggota3->id,
         ]);
         $user3->assignRole($userRole);
+        foreach (range(2018, 2024) as $tahun) {
+            // Buat jumlah anggota random antara 20 sampai 50 untuk tahun ini
+            $jumlahAnggota = rand(20, 50);
 
+            Anggota::factory()
+                ->count($jumlahAnggota)
+                ->create([
+                    // Atur tahun_lk1 dan tahun_masuk_kuliah sesuai dengan tahun loop saat ini
+                    'tahun_lk1' => $tahun,
+                    'tahun_masuk_kuliah' => $tahun,
+                ]);
+        }
         // === Jalankan seeder tambahan jika ada ===
         $this->call([
             OrganizationSeeder::class,

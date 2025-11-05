@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
         $superAdminAnggota = Anggota::create([
             'nama' => 'Super Admin',
             'kelamin' => 'Laki-laki',
+            'tahun_lk1' => null,
         ]);
         // === Super Admin (tanpa anggota) ===
         $superAdmin = User::create([
@@ -89,12 +90,14 @@ class DatabaseSeeder extends Seeder
             'nama' => 'Admin Teknik',
             'kelamin' => 'Laki-laki',
             'komisariat_id' => $komisariatFT->id,
+            'tahun_lk1' => null,
         ]);
 
         $adminFisipAnggota = Anggota::create([
             'nama' => 'Admin FISIP',
             'kelamin' => 'Laki-laki',
             'komisariat_id' => $komisariatFISIP->id,
+            'tahun_lk1' => null,
         ]);
 
         // === Buat user dan hubungkan ke anggota ===

@@ -15,7 +15,6 @@ class KomisariatChart extends ChartWidget
     {
         $data = Anggota::select(DB::raw('count(*) as total'), 'tahun_lk1')
             ->whereNotNull('tahun_lk1')
-            ->where('tahun_lk1', '!=', '') 
             ->groupBy('tahun_lk1')
             ->orderBy('tahun_lk1', 'asc') 
             ->get();

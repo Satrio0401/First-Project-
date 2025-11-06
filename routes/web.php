@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MapPageController;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\HomePage;
 use App\Livewire\TentangPage;
@@ -18,4 +19,5 @@ Route::get('/berita', BeritaIndex::class)->name('berita.index');
 Route::get('/galeri', GaleriIndex::class)->name('galeri.index');
 Route::get('/berita/{slug}', BeritaShow::class)->name('berita.show');
 Route::get('/program-kerja', ProgramKerjaPage::class)->name('program-kerja');
-Route::get('/map', MapPage::class)->name('map');
+// Route::get('/map', MapPage::class)->name('map');
+Route::get('/map', [MapPageController::class, 'index'])->name('map');

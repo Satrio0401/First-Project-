@@ -56,7 +56,10 @@
                     @endphp
 
                     @foreach ($links as $link)
-                        <a href="{{ route($link['route']) }}" wire:navigate
+                        <a href="{{ route($link['route']) }}" 
+                            @if ($link['route'] !== 'map')
+                                wire:navigate
+                            @endif
                             class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition"
                             :class="isScrolled
                                 ?

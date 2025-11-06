@@ -60,9 +60,21 @@ class AnggotaResource extends Resource
         }
         // Jika Admin Komisariat, filter berdasarkan komisariat_id mereka
         if ($user->hasRole('Admin Komisariat')) {
-            return parent::getEloquentQuery()->whereHas('user', function (Builder $query) use ($user) {
-                $query->where('komisariat_id', $user->komisariat_id);
-            });
+            $komisariatId = $user->anggota?->komisariat_id;
+            if (!$komisariatId) {
+                return parent::getEloquentQuery()->whereNull('id');
+            }
+            return parent::getEloquentQuery()->where('komisariat_id', $komisariatId);
+        }
+
+        // ==================================================
+        // LOGIKA BARU UNTUK ROLE 'ANGGOTA'
+        // ==================================================
+        if ($user->hasRole('Anggota')) {
+            return parent::getEloquentQuery()
+                ->whereDoesntHave('user.roles', function (Builder $roleQuery) {
+                    $roleQuery->whereIn('name', ['Admin Komisariat','Super Admin']);
+                });
         }
         // Default, jangan tampilkan apa-apa untuk role lain
         return parent::getEloquentQuery()->whereNull('id');

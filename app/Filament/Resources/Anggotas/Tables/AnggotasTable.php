@@ -112,7 +112,6 @@ class AnggotasTable
             ])
             ->recordActions([
                 EditAction::make(),
-                
                 Action::make('buatUser')
                 ->label('Buat User')
                 ->icon('heroicon-o-user-plus')

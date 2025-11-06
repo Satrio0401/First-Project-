@@ -20,7 +20,7 @@ class AnggotaPolicy
     public function viewAny(User $user): bool
     {
         // Admin Komisariat bisa melihat daftar anggotanya sendiri
-        return $user->hasRole('Admin Komisariat');
+        return $user->hasAnyRole(['Admin Komisariat','Anggota']);
     }
 
     // Siapa yang bisa melihat detail satu anggota?
@@ -28,7 +28,11 @@ class AnggotaPolicy
     {
         // Admin Komisariat hanya bisa lihat anggota dari komisariatnya
         if ($user->hasRole('Admin Komisariat')) {
-            return $user->komisariat_id === $anggota->komisariat_id;
+            return $user->anggota?->komisariat_id === $anggota->komisariat_id;
+        }
+        if ($user->hasRole('Anggota')) {
+            // Anggota bisa lihat semua, KECUALI yang rolenya 'Admin Komisariat'
+            return !$anggota->user?->hasAnyRole(['Admin Komisariat','Super Admin']);
         }
         return false;
     }
@@ -44,7 +48,7 @@ class AnggotaPolicy
     {
         // Admin Komisariat hanya bisa edit anggota dari komisariatnya
         if ($user->hasRole('Admin Komisariat')) {
-            return $user->komisariat_id === $anggota->komisariat_id;
+            return $user->anggota?->komisariat_id === $anggota->komisariat_id;
         }
         return false;
     }
@@ -54,7 +58,7 @@ class AnggotaPolicy
     {
         // Admin Komisariat hanya bisa hapus anggota dari komisariatnya
         if ($user->hasRole('Admin Komisariat')) {
-            return $user->komisariat_id === $anggota->komisariat_id;
+            return $user->anggota?->komisariat_id === $anggota->komisariat_id;
         }
         return false;
     }

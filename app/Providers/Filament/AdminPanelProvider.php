@@ -44,7 +44,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([
-                AccountWidget::class,
+                // AccountWidget::class,
                 StatsOverview::class,
                 KomisariatChart::class,
                 JurusanChart::class

@@ -16,8 +16,10 @@ class DatabaseSeeder extends Seeder
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
         // === Komisariat ===
-        $komisariatFT = Komisariat::firstOrCreate(['nama' => 'Komisariat Teknik UNTAN']);
-        $komisariatFISIP = Komisariat::firstOrCreate(['nama' => 'Komisariat FISIP UNTAN']);
+        $komisariatFT = Komisariat::firstOrCreate(['nama' => 'Komisariat Teknik UNTAN',
+    'latitude'=>-0.055831,'longitude'=>109.34753]);
+        $komisariatFISIP = Komisariat::firstOrCreate(['nama' => 'Komisariat FISIP UNTAN',
+    'latitude'=>-0.060080,'longitude'=>109.347542]);
         $jurusanTeknikArsitektur = Jurusan::create(['nama_jurusan' => 'Teknik Arsitektur']);
         $jurusanTeknikKimia = Jurusan::create(['nama_jurusan' => 'Teknik Kimia']);
         $jurusanTeknikIndustri = Jurusan::create(['nama_jurusan' => 'Teknik Industri']);

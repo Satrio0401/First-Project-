@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\visualisasi;
 use App\Filament\Widgets\JurusanChart;
 use App\Filament\Widgets\KomisariatChart;
 use App\Filament\Widgets\KomisariatMapWidget;
@@ -23,6 +24,7 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Illuminate\Support\Facades\Blade;
+use Filament\View\PanelsRenderHook;
 use Filament\Support\Facades\FilamentAsset;
 
 class AdminPanelProvider extends PanelProvider
@@ -31,6 +33,11 @@ class AdminPanelProvider extends PanelProvider
     {
         return $panel
             ->spa()
+            ->spaUrlExceptions(fn (): array => [
+                // Halaman ini akan di-load secara FULL RELOAD (bukan SPA)
+                // Jadi Google Maps bakal aman sentosa
+                visualisasi::getUrl(),
+            ])
             ->id('admin')
             ->path('dashboard')
             ->login()
@@ -64,9 +71,13 @@ class AdminPanelProvider extends PanelProvider
                 Authenticate::class,
             ])
             ->sidebarFullyCollapsibleOnDesktop()
-            ->brandLogo(fn () => view('filament.admin.logo'))
+            ->brandLogo(fn() => view('filament.admin.logo'))
             ->brandLogoHeight('2rem')
             ->globalSearch(false)
-            ;
+            ->renderHook(
+                PanelsRenderHook::HEAD_END,
+                fn(): string => Blade::render('@vite(["resources/css/app.css", "resources/js/app.js"])')
+            )
+        ;
     }
 }

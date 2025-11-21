@@ -100,9 +100,11 @@
                 });
 
                 marker.addListener('click', () => {
+                    console.log(item.nama);
                     if (isAnggota) {
                         // Panggil method di komponen Livewire
-                        @this.call('showAnggotaDetails', { anggotaId: item.id });
+                        
+                        @this.call('showAnggotaDetails', item.id);
                     }
                     
                     infowindow.setContent(`

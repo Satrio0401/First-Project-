@@ -44,11 +44,11 @@
     </div>
 </x-filament-panels::page>
 
+{{-- Pastikan script Google Maps dimuat --}}
 @once('google-maps-script')
     <script>
-        // Definisikan fungsi ini di scope global agar bisa diakses oleh callback Google
         function initAllMaps() {
-            console.log('Google Maps API is ready. Firing event.');
+            // Dispatch event saat Google Maps siap
             window.dispatchEvent(new CustomEvent('google-maps-loaded'));
         }
     </script>
@@ -57,158 +57,110 @@
 @endonce
 
 <script>
-    let map;
-    let activeMarkers = [];
+    document.addEventListener('livewire:initialized', () => {
+        let map;
+        let activeMarkers = [];
 
-    function clearMarkers() {
-        activeMarkers.forEach(marker => marker.setMap(null));
-        activeMarkers = [];
-    }
-
-    function drawMarkers(mapInstance, data, markerColor, isAnggota = false) {
-        clearMarkers();
-        if (!data || !Array.isArray(data) || data.length === 0) {
-            console.warn('Data tidak valid atau kosong. Peta tidak akan digambar.', data);
-            return;
+        // 1. Fungsi untuk membersihkan marker
+        function clearMarkers() {
+            activeMarkers.forEach(marker => marker.setMap(null));
+            activeMarkers = [];
         }
 
-        const infowindow = new google.maps.InfoWindow();
-
-        data.forEach(item => {
-            const position = {
-                lat: parseFloat(item.latitude),
-                lng: parseFloat(item.longitude)
-            };
-
-            const marker = new google.maps.Marker({
-                position: position,
-                map: mapInstance,
-                title: item.nama,
-                icon: {
-                    url: `http://maps.google.com/mapfiles/ms/icons/${markerColor}-dot.png`
-                }
-            });
-
-            marker.addListener('click', () => {
-                if (isAnggota) {
-                    // Kirim ID anggota ke backend
-                    window.Livewire.dispatch('showAnggotaDetails', {
-                        anggotaId: item.id
-                    });
-                }
-                infowindow.setContent(`<strong style="color: black;">${item.nama}</strong>`);
-                infowindow.open(map, marker);
-            });
-            activeMarkers.push(marker); // Simpan marker untuk dihapus nanti
-        });
-    }
-
-    // function initializeMap() {
-    //     console.log('Attempting to initialize empty map...');
-    //     const mapElement = document.getElementById('map-container');
-    //     const anggotaFilters = document.getElementById('anggota-filters');
-    //     if (!mapElement) {
-    //         console.error('Map element #map-container not found!');
-    //         return;
-    //     }
-    //     if (mapElement.classList.contains('map-initialized')) {
-    //         console.warn('Map already initialized.');
-    //         return;
-    //     }
-    //     mapElement.classList.add('map-initialized');
-    //     map = new google.maps.Map(mapElement, {
-    //         zoom: 12,
-    //         center: {
-    //             lat: -0.05,
-    //             lng: 109.347
-    //         },
-    //     });
-    //     const komisariatData = JSON.parse(mapElement.getAttribute('data-komisariat') || '[]');
-    //     const anggotaData = JSON.parse(mapElement.getAttribute('data-anggota') || '[]');
-    //     document.getElementById('show-komisariat-btn').addEventListener('click', () => {
-    //         window.Livewire.dispatch('hideInfolist');
-    //         drawMarkers(komisariatData, 'blue', false); // Gambar marker komisariat (biru)
-    //         anggotaFilters.style.display = 'none'; // Sembunyikan filter
-    //     });
-
-    //     document.getElementById('show-anggota-btn').addEventListener('click', () => {
-    //         drawMarkers(anggotaData, 'red', true); // Gambar marker anggota (merah)
-    //         anggotaFilters.style.display = 'grid'; // Tampilkan filter
-    //     });
-
-    //     // Tampilkan data komisariat secara default saat pertama kali load
-    //     drawMarkers(komisariatData, 'blue', false);
-    // }
-
-    // Dengarkan event universal
-    // window.addEventListener('google-maps-loaded', initializeMap);
-
-    // // Pemicu untuk navigasi SPA
-    // document.addEventListener('livewire:navigated', () => {
-    //     if (window.google && window.google.maps) {
-    //         initializeMap();
-    //     }
-    // });
-
-    // // Pemicu untuk hard refresh (jika API sudah di-cache)
-    // if (window.google && window.google.maps) {
-    //     initializeMap();
-    // }
-    document.addEventListener('livewire:initialized', () => {
-        const mapElement = document.getElementById('map-container');
-        if (!mapElement) return;
-
-        map = new google.maps.Map(mapElement, {
-            zoom: 12,
-            center: {
-                lat: -0.05,
-                lng: 109.347
-            },
-        });
-
-        window.Livewire.on('drawKomisariatMarkers', ({
-            data
-        }) => {
-            drawMarkers(map, data, 'blue', false);
-        });
-
-        // Terima 'data' dari event
-        window.Livewire.on('drawAnggotaMarkers', ({
-            data
-        }) => {
-            drawMarkers(map, data, 'red', true);
-        });
-
-        window.Livewire.on('redrawAnggotaMarkers', ({
-            data
-        }) => {
-            drawMarkers(map, data, 'red', true);
-        });
-
-        window.Livewire.on('showAnggotaDetails', ({
-            anggotaId
-        }) => {
-            // Anda bisa menambahkan logika di sini jika perlu,
-            // misalnya scroll ke infolist.
-            console.log(`Showing details for Anggota ID: ${anggotaId}`);
-
-            // Opsi: Scroll ke bawah agar infolist terlihat
-            const infolistElement = document.querySelector('.fi-infolist-grid');
-            if (infolistElement) {
-                infolistElement.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+        // 2. Fungsi menggambar marker
+        function drawMarkers(mapInstance, data, markerColor, isAnggota = false) {
+            clearMarkers();
+            
+            if (!data || !Array.isArray(data) || data.length === 0) {
+                console.warn('Data kosong atau tidak valid.');
+                return;
             }
-        });
-        // window.Livewire.dispatch('drawKomisariatMarkers');
-        @this.call('showKomisariatView');
-        // window.Livewire.on('redrawAnggotaMarkers', () => {
-        //     // Ambil ulang data anggota yang sudah difilter dari atribut
-        //     const mapElement = document.getElementById('map-container');
-        //     const newAnggotaData = JSON.parse(mapElement.getAttribute('data-anggota'));
-        //     // Gambar ulang marker anggota
-        //     drawMarkers(newAnggotaData, 'red', true);
-        // });
+
+            const infowindow = new google.maps.InfoWindow();
+
+            data.forEach(item => {
+                // Pastikan koordinat valid angka
+                const lat = parseFloat(item.latitude);
+                const lng = parseFloat(item.longitude);
+
+                if (isNaN(lat) || isNaN(lng)) return;
+
+                // PERBAIKAN: Tambahkan '$' sebelum {markerColor}
+                // Gunakan URL icon standar google atau custom icon Anda
+                // Contoh default: merah. Untuk warna lain perlu icon khusus.
+                let iconUrl = isAnggota 
+                    ? "http://maps.google.com/mapfiles/ms/icons/red-dot.png" 
+                    : "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
+
+                const marker = new google.maps.Marker({
+                    position: { lat, lng },
+                    map: mapInstance,
+                    title: item.nama,
+                    icon: iconUrl 
+                });
+
+                marker.addListener('click', () => {
+                    if (isAnggota) {
+                        // Panggil method di komponen Livewire
+                        @this.call('showAnggotaDetails', { anggotaId: item.id });
+                    }
+                    
+                    infowindow.setContent(`
+                        <div style="color:black; padding:5px;">
+                            <strong>${item.nama}</strong>
+                        </div>
+                    `);
+                    infowindow.open(mapInstance, marker);
+                });
+
+                activeMarkers.push(marker);
+            });
+        }
+
+        // 3. Fungsi Inisialisasi Utama (PENTING)
+        function initializeMap() {
+            const mapElement = document.getElementById('map-container');
+            
+            // Cek 1: Apakah elemen div ada?
+            if (!mapElement) return;
+
+            // Cek 2: Apakah Google Maps API sudah siap?
+            if (typeof google === 'undefined' || typeof google.maps === 'undefined') {
+                // Jika belum siap, tunggu event 'google-maps-loaded'
+                window.addEventListener('google-maps-loaded', initializeMap, { once: true });
+                return;
+            }
+
+            // Cek 3: Apakah map sudah pernah dibuat agar tidak double render?
+            if (map) return; 
+
+            // Buat Peta
+            map = new google.maps.Map(mapElement, {
+                zoom: 12,
+                center: { lat: -0.026330, lng: 109.342503 }, // Sesuaikan center default
+            });
+
+            // 4. Daftarkan Event Listeners Livewire
+            // Perhatikan: Kita menggunakan Livewire.on di dalam sini agar map scope-nya aman
+            
+            Livewire.on('drawKomisariatMarkers', ({ data }) => {
+                drawMarkers(map, data, 'blue', false);
+            });
+
+            Livewire.on('drawAnggotaMarkers', ({ data }) => {
+                drawMarkers(map, data, 'red', true);
+            });
+
+            Livewire.on('redrawAnggotaMarkers', ({ data }) => {
+                drawMarkers(map, data, 'red', true);
+            });
+
+            // 5. Trigger data awal (Komisariat)
+            // Menggunakan @this (blade directive) yang diterjemahkan menjadi object Livewire component
+            @this.call('showKomisariatView');
+        }
+
+        // Jalankan inisialisasi
+        initializeMap();
     });
 </script>

@@ -21,3 +21,20 @@ Route::get('/berita/{slug}', BeritaShow::class)->name('berita.show');
 Route::get('/program-kerja', ProgramKerjaPage::class)->name('program-kerja');
 // Route::get('/map', MapPage::class)->name('map');
 Route::get('/map', [MapPageController::class, 'index'])->name('map');
+// Route A: Tes Framework Murni (Tanpa DB)
+Route::get('/tes-framework', function () {
+    $durasi = (microtime(true) - LARAVEL_START) * 1000;
+    return 'Laravel Booting Time: ' . $durasi . ' ms';
+});
+
+// Route B: Tes Koneksi DB via Laravel
+Route::get('/tes-db', function () {
+    $start = microtime(true);
+    try {
+        \DB::connection()->getPdo();
+        $status = "Sukses Konek!";
+    } catch (\Exception $e) {
+        $status = "Gagal: " . $e->getMessage();
+    }
+    return $status . " | Durasi: " . ((microtime(true) - $start) * 1000) . " ms";
+});

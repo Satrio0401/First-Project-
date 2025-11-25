@@ -34,8 +34,6 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->spa()
             ->spaUrlExceptions(fn (): array => [
-                // Halaman ini akan di-load secara FULL RELOAD (bukan SPA)
-                // Jadi Google Maps bakal aman sentosa
                 visualisasi::getUrl(),
             ])
             ->id('admin')

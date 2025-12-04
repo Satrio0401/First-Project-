@@ -5,6 +5,8 @@ namespace App\Filament\Resources\Beritas\Tables;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
+use Filament\Actions\DeleteAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ImageColumn;
@@ -76,11 +78,21 @@ class BeritasTable
                     ->falseLabel('Draft'),
             ])
             ->recordActions([
+                ViewAction::make(),
                 EditAction::make(),
+                DeleteAction::make()
+                    ->requiresConfirmation()
+                    ->modalHeading('Hapus Berita')
+                    ->modalDescription('Apakah Anda yakin ingin menghapus berita ini? Tindakan ini tidak dapat dibatalkan.')
+                    ->modalSubmitActionLabel('Ya, Hapus'),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
-                    DeleteBulkAction::make(),
+                    DeleteBulkAction::make()
+                        ->requiresConfirmation()
+                        ->modalHeading('Hapus Berita Terpilih')
+                        ->modalDescription('Apakah Anda yakin ingin menghapus semua berita yang dipilih? Tindakan ini tidak dapat dibatalkan.')
+                        ->modalSubmitActionLabel('Ya, Hapus Semua'),
                 ]),
             ])
             ->defaultSort('published_at', 'desc');

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class KomisariatChart extends ChartWidget
 {
-    protected ?string $heading = 'Komisariat Chart';
+    protected ?string $heading = 'Jumlah Anggota per Tahun LK1';
     protected static ?int $sort = 3;
 
     protected function getData(): array

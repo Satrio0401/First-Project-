@@ -10,6 +10,7 @@ use App\Livewire\BeritaShow;
 use App\Livewire\GaleriIndex;
 use App\Livewire\ProgramKerjaPage;
 use App\Livewire\MapPage;
+use Illuminate\Support\Facades\DB;
 
 // Public Routes
 Route::get('/', HomePage::class)->name('home');
@@ -31,7 +32,7 @@ Route::get('/tes-framework', function () {
 Route::get('/tes-db', function () {
     $start = microtime(true);
     try {
-        \DB::connection()->getPdo();
+        DB::connection()->getPdo();
         $status = "Sukses Konek!";
     } catch (\Exception $e) {
         $status = "Gagal: " . $e->getMessage();

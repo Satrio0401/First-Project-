@@ -20,7 +20,15 @@ class JurusanResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::AcademicCap;
 
-    protected static ?string $recordTitleAttribute = 'Jurusan';
+    protected static ?string $navigationLabel = 'Jurusan';
+
+    protected static ?string $modelLabel = 'Jurusan';
+
+    protected static ?string $pluralModelLabel = 'Jurusan';
+
+    protected static ?int $navigationSort = 2;
+
+    protected static ?string $recordTitleAttribute = 'nama_jurusan';
 
     public static function form(Schema $schema): Schema
     {

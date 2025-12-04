@@ -21,7 +21,15 @@ class KomisariatResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::BuildingOffice;
 
-    protected static ?string $recordTitleAttribute = 'komisariat';
+    protected static ?string $navigationLabel = 'Komisariat';
+
+    protected static ?string $modelLabel = 'Komisariat';
+
+    protected static ?string $pluralModelLabel = 'Komisariat';
+
+    protected static ?int $navigationSort = 3;
+
+    protected static ?string $recordTitleAttribute = 'nama';
 
     public static function form(Schema $schema): Schema
     {
@@ -52,6 +60,8 @@ class KomisariatResource extends Resource
     //Batasan akses
     public static function canAccess(): bool
     {
-        return auth()->user()?->hasRole('Super Admin');
+        /** @var \App\Models\User|null $user */
+        $user = auth()->user();
+        return $user?->hasRole('Super Admin') ?? false;
     }
 }

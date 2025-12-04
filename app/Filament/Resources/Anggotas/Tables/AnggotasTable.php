@@ -10,9 +10,11 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Actions\EditAction;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Filters\SelectFilter;
 
 class AnggotasTable
 {
@@ -108,16 +110,48 @@ class AnggotasTable
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                SelectFilter::make('komisariat_id')
+                    ->label('Komisariat')
+                    ->relationship('komisariat', 'nama')
+                    ->searchable()
+                    ->preload(),
+                
+                SelectFilter::make('jurusan_id')
+                    ->label('Jurusan')
+                    ->relationship('jurusan', 'nama_jurusan')
+                    ->searchable()
+                    ->preload(),
+                
+                SelectFilter::make('kelamin')
+                    ->label('Jenis Kelamin')
+                    ->options([
+                        'Laki-laki' => 'Laki-laki',
+                        'Perempuan' => 'Perempuan',
+                    ]),
+                
+                SelectFilter::make('tahun_lk1')
+                    ->label('Tahun LK1')
+                    ->options(fn () => Anggota::whereNotNull('tahun_lk1')
+                        ->distinct()
+                        ->orderBy('tahun_lk1', 'desc')
+                        ->pluck('tahun_lk1', 'tahun_lk1')
+                        ->toArray()),
             ])
             ->recordActions([
                 EditAction::make(),
+                DeleteAction::make()
+                    ->requiresConfirmation()
+                    ->modalHeading('Hapus Anggota')
+                    ->modalDescription('Apakah Anda yakin ingin menghapus data anggota ini? Tindakan ini tidak dapat dibatalkan.')
+                    ->modalSubmitActionLabel('Ya, Hapus'),
                 Action::make('buatUser')
                 ->label('Buat User')
                 ->icon('heroicon-o-user-plus')
                 ->color('success')
                 ->visible(function (Anggota $record): bool {
-                        $isSuperAdmin = auth()->user()->hasRole('Super Admin');
+                        /** @var \App\Models\User|null $user */
+                        $user = auth()->user();
+                        $isSuperAdmin = $user?->hasRole('Super Admin') ?? false;
                         $hasNoUser = is_null($record->user);
                         return $isSuperAdmin && $hasNoUser;
                     })
@@ -125,7 +159,11 @@ class AnggotasTable
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
-                    DeleteBulkAction::make(),
+                    DeleteBulkAction::make()
+                        ->requiresConfirmation()
+                        ->modalHeading('Hapus Anggota Terpilih')
+                        ->modalDescription('Apakah Anda yakin ingin menghapus semua anggota yang dipilih? Tindakan ini tidak dapat dibatalkan.')
+                        ->modalSubmitActionLabel('Ya, Hapus Semua'),
                 ]),
             ]);
     }

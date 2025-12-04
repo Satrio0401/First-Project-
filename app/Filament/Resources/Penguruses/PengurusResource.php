@@ -18,7 +18,7 @@ use Filament\Tables\Table;
 class PengurusResource extends Resource
 {
     protected static ?string $model = Pengurus::class;
-    protected static string | UnitEnum | null $navigationGroup = 'Settings';
+    protected static string | UnitEnum | null $navigationGroup = 'Organisasi';
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::UserGroup;
 

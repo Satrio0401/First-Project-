@@ -5,6 +5,7 @@ namespace App\Filament\Pages;
 use App\Models\Setting;
 use App\Models\Misi;
 use App\Models\SejarahPengurus;
+use App\Models\User;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\TextInput;
@@ -35,7 +36,9 @@ class OrganizationSettings extends Page implements HasForms
     public ?array $data = [];
     public static function canAccess(): bool
     {
-        return auth()->user()->hasRole('Super Admin');
+        /** @var User|null $user */
+        $user = auth()->user();
+        return $user?->hasRole('Super Admin') ?? false;
     }
     public function getView(): string
     {
@@ -50,7 +53,7 @@ class OrganizationSettings extends Page implements HasForms
         
         $this->form->fill([
             'visi' => $settings['visi'] ?? '',
-            'misi' => $settings['visi'] ?? '',
+            'misi' => $settings['misi'] ?? '',
             'sejarah' => $settings['sejarah'] ?? '',
             'sejarah_kepengurusan' => $sejarahKepengurusan,
         ]);
@@ -64,10 +67,12 @@ class OrganizationSettings extends Page implements HasForms
                     ->schema([
                         Textarea::make('visi')
                             ->label('Visi Organisasi')
+                            ->required()
                             ->rows(4)
                             ->columnSpanFull(),
                         Textarea::make('misi')
                             ->label('Misi Organisasi')
+                            ->required()
                             ->rows(8)
                             ->helperText('Pisahkan setiap poin misi dengan menekan tombol Enter.')
                             ->columnSpanFull(),

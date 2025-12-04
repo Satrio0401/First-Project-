@@ -18,7 +18,7 @@ use Filament\Tables\Table;
 class ProgramKerjaResource extends Resource
 {
     protected static ?string $model = ProgramKerja::class;
-    protected static string | UnitEnum | null $navigationGroup = 'Settings';
+    protected static string | UnitEnum | null $navigationGroup = 'Konten';
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::ClipboardDocumentList;
 

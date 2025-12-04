@@ -8,6 +8,7 @@ use App\Filament\Resources\Anggotas\Pages\EditAnggota;
 use App\Filament\Resources\Anggotas\Pages\ListAnggotas;
 use App\Filament\Resources\Anggotas\Tables\AnggotasTable;
 use App\Filament\Resources\Anggotas\Schemas\AnggotaForm;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use App\Models\Anggota;
 use BackedEnum;
@@ -22,7 +23,15 @@ class AnggotaResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::Users;
 
-    protected static ?string $recordTitleAttribute = 'Anggota';
+    protected static ?string $navigationLabel = 'Anggota';
+
+    protected static ?string $modelLabel = 'Anggota';
+
+    protected static ?string $pluralModelLabel = 'Anggota';
+
+    protected static ?int $navigationSort = 1;
+
+    protected static ?string $recordTitleAttribute = 'nama';
 
     public static function form(Schema $schema): Schema
     {
@@ -53,6 +62,7 @@ class AnggotaResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
+        /** @var User $user */
         $user = auth()->user();
         // Jika Super Admin, tampilkan semua data
         if ($user->hasRole('Super Admin')) {

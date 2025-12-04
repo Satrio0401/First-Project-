@@ -21,9 +21,17 @@ class GaleriResource extends Resource
 {
     protected static ?string $model = Galeri::class;
     
-    protected static string | UnitEnum | null $navigationGroup = 'Settings';
+    protected static string | UnitEnum | null $navigationGroup = 'Konten';
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::Photo;
+
+    protected static ?string $navigationLabel = 'Galeri';
+
+    protected static ?string $modelLabel = 'Galeri';
+
+    protected static ?string $pluralModelLabel = 'Galeri';
+
+    protected static ?int $navigationSort = 2;
 
     protected static ?string $recordTitleAttribute = 'judul';
 

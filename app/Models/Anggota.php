@@ -31,6 +31,7 @@ class Anggota extends Model
         'latitude',
         'longitude',
     ];
+    // protected $guarded = [];
 
     public function user()
     {

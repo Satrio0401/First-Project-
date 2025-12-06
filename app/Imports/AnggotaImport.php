@@ -1,80 +1,59 @@
-<?php 
+<?php
+// filepath: app\Imports\AnggotaImport.php
 namespace App\Imports;
 
 use App\Models\Anggota;
 use App\Models\Jurusan;
-use pxlrbt\FilamentExcel\Imports\Importer;
-use pxlrbt\FilamentExcel\Imports\Importable;
 use Carbon\Carbon;
+use EightyNine\ExcelImport\EnhancedDefaultImport;
+use Illuminate\Support\Collection;
+use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithValidation;
+use Maatwebsite\Excel\Concerns\SkipsOnFailure;
+use Maatwebsite\Excel\Validators\Failure;
+use Maatwebsite\Excel\Concerns\SkipsFailures;
 
-class AnggotaImport extends Importer
+class AnggotaImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnFailure
 {
-    use Importable;
-
-    public static function getColumns(): array
-    {
-        return [
-            'nama',
-            'ttl',
-            'jenis kelamin',
-            'alamat',
-            'no hp/wa',
-            'tahun masuk kuliah',
-            'jurusan/program studi',
-        ];
-    }
-
+    use SkipsFailures;
+    
+    /**
+    * @param array $row
+    *
+    * @return \Illuminate\Database\Eloquent\Model|null
+    */
     public function model(array $row)
     {
         $tempat = null;
         $tanggal = null;
 
-        /**
-         * TTL
-         */
         if (!empty($row['ttl'])) {
             $value = trim($row['ttl']);
-
-            if (strpos($value, ',') !== false) {
-                $parts = explode(',', $value);
-            } else {
-                $parts = preg_split('/\s+(?=\d)/', $value, 2);
-            }
-
+            $parts = strpos($value, ',') !== false ? explode(',', $value, 2) : preg_split('/\s+(?=\d)/', $value, 2);
             $tempat = trim($parts[0] ?? '');
-            $tanggalRaw = trim($parts[1] ?? '');
-
-            if ($tanggalRaw !== '') {
-                try {
-                    // jika numeric (format Excel)
-                    if (is_numeric($tanggalRaw)) {
-                        $tanggal = Carbon::createFromTimestamp(($tanggalRaw - 25569) * 86400)->format('Y-m-d');
-                    } else {
-                        $tanggal = Carbon::parse($tanggalRaw)->format('Y-m-d');
-                    }
-                } catch (\Exception $e) {
-                    $tanggal = null;
-                }
+            try {
+                // Coba parsing dengan format d/m/Y atau format lain yang umum
+                $tanggal = Carbon::parse(trim($parts[1] ?? ''))->format('Y-m-d');
+            } catch (\Exception $e) {
+                $tanggal = null; // Gagal parsing, set null
             }
         }
 
-        /**
-         * Kelamin
-         */
         $kelamin = null;
-        if (!empty($row['jenis kelamin'])) {
-            $val = strtolower(trim($row['jenis kelamin']));
-            $kelamin = in_array($val, ['l', 'laki', 'laki-laki']) ? 'Laki-laki'
-                      : (in_array($val, ['p', 'perempuan']) ? 'Perempuan' : null);
+        if (!empty($row['jenis_kelamin'])) {
+            $val = strtolower(trim($row['jenis_kelamin']));
+            $kelamin = match (true) {
+                in_array($val, ['l', 'laki', 'laki-laki']) => 'Laki-laki',
+                in_array($val, ['p', 'perempuan']) => 'Perempuan',
+                default => null,
+            };
         }
 
-        /**
-         * Jurusan
-         */
         $jurusanId = null;
-        if (!empty($row['jurusan/program studi'])) {
-            $search = strtolower($row['jurusan/program studi']);
-            $jurusan = Jurusan::whereRaw('LOWER(nama) LIKE ?', ["%$search%"])->first();
+        // Maatwebsite/excel akan mengubah 'jurusan/program studi' menjadi 'jurusanprogram_studi'
+        if (!empty($row['jurusanprogram_studi'])) {
+            $jurusan = Jurusan::where('nama_jurusan', 'LIKE', '%' . $row['jurusanprogram_studi'] . '%')->first();
             $jurusanId = $jurusan?->id;
         }
 
@@ -84,9 +63,27 @@ class AnggotaImport extends Importer
             'tempat_lahir'        => $tempat,
             'tanggal_lahir'       => $tanggal,
             'alamat'              => $row['alamat'] ?? null,
-            'no_wa'               => $row['no hp/wa'] ?? null,
-            'tahun_masuk_kuliah'  => $row['tahun masuk kuliah'] ?? null,
+            'no_wa'               => $row['no_hpwa'] ?? null,
+            'tahun_masuk_kuliah'  => $row['tahun_masuk_kuliah'] ?? null,
             'jurusan_id'          => $jurusanId,
         ]);
     }
+
+    public function rules(): array
+    {
+        return [
+            'nama' => 'required|max:255',
+            'jenis_kelamin' => 'required',
+        ];
+    }
+
+    public function customValidationMessages()
+    {
+        return [
+            'nama.required' => 'Kolom nama tidak boleh kosong.',
+            'jenis_kelamin.required' => 'Kolom jenis kelamin tidak boleh kosong.',
+        ];
+    }
+
+    
 }

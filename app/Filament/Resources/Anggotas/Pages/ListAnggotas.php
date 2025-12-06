@@ -3,16 +3,20 @@
 namespace App\Filament\Resources\Anggotas\Pages;
 
 use App\Filament\Resources\Anggotas\AnggotaResource;
+use App\Imports\AnggotaImport;
 use App\Models\Anggota;
 use App\Models\Jurusan;
 use Carbon\Carbon;
 use EightyNine\ExcelImport\ExcelImportAction;
+use EightyNine\ExcelImport\Exceptions\ImportStoppedException;
 use Filament\Actions\Action;
 use Illuminate\Support\Collection;
 use Filament\Actions\CreateAction;
 // use Filament\Forms\Components\Builder;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Checkbox;
+use Filament\Notifications\Notification;
 use pxlrbt\FilamentExcel\Columns\Column;
 use pxlrbt\FilamentExcel\Actions\ExportAction;
 use pxlrbt\FilamentExcel\Exports\ExcelExport;
@@ -26,12 +30,14 @@ class ListAnggotas extends ListRecords
     {
         return [
             ExcelImportAction::make()
+                ->use(AnggotaImport::class)
                 ->uploadField(
-                    fn (FileUpload $field) => $field->label('Format File')
+                    fn (FileUpload $field) => $field->label('Data Anggota')
                 )
                 ->sampleExcel(
                     sampleData: [
-                        ['nama' => '', 'jenis_kelamin' => '', 'ttl' => '', 'alamat' => '', 'no_hpwa' => '', 'tahun_masuk_kuliah' => '', 'jurusan/program studi' => ''],
+                        ['NAMA' => 'Doni Handoko', 'JENIS KELAMIN' => 'laki-laki', 'TTL' => 'Tekarang, 1 April 2006', 'ALAMAT' => 'Desa Tekarang, Kabupaten sambas', 'NO HP/WA' => '085754400764', 'TAHUN MASUK KULIAH' => '2024', 'JURUSAN/PROGRAM STUDI' => 'Teknik Arsitektur'],
+                        ['NAMA' => 'Bunga Cahaya Luna', 'JENIS KELAMIN' => 'Perempuan', 'TTL' => 'Semarang, 23 Agustus 2003', 'ALAMAT' => 'Desa Indah Permai, Kabupaten Panurukan', 'NO HP/WA' => '085776918462', 'TAHUN MASUK KULIAH' => '2021', 'JURUSAN/PROGRAM STUDI' => 'Teknik Kimia'],
                     ],
                     fileName: 'Contoh Impor Anggota - ' . date('Y-m-d') .'.xlsx',
                     sampleButtonLabel: 'Unduh Contoh',
@@ -43,66 +49,8 @@ class ListAnggotas extends ListRecords
                 ->modalHeading('Import File Excel')
                 ->closeModalByClickingAway(true)
                 ->modalDescription('Silahkan import file excel anda')
-                ->processCollectionUsing(function (string $modelClass, Collection $rows) {
-                    // dd($rows);
-                    foreach ($rows as $row) {
-                        $tempat = null;
-                        $tanggal = null;
-
-                        if (!empty($row['ttl'])) {
-                            $value = trim($row['ttl']);
-
-                            if (strpos($value, ',') !== false) {
-                                $parts = explode(',', $value);
-                            } else {
-                                $parts = preg_split('/\s+(?=\d)/', $value, 2);
-                            }
-
-                            $tempat = trim($parts[0] ?? '');
-
-                            try {
-                                $tanggal = Carbon::parse(trim($parts[1] ?? ''))->format('Y-m-d');
-                            } catch (\Exception) {
-                                $tanggal = null;
-                            }
-                        }
-                        $kelamin = null;
-                        if (!empty($row['jenis_kelamin'])) {
-                            $val = strtolower(trim($row['jenis_kelamin']));
-
-                            $kelamin = match (true) {
-                                in_array($val, ['l', 'laki', 'laki-laki']) => 'Laki-laki',
-                                in_array($val, ['p', 'perempuan']) => 'Perempuan',
-                                default => null,
-                            };
-                        }
-                        $jurusanId = null;
-                        if (!empty($row['jurusan/program studi'])) {
-                            $jurusan = Jurusan::where('nama_jurusan', 'LIKE', '%' . $row['jurusan/program studi'] . '%')->first();
-                            $jurusanId = $jurusan?->id;
-                        }
-
-                        // ===========================
-                        // 4. SIMPAN KE DATABASE
-                        // ===========================
-                        // dd($row);
-                        Anggota::create([
-                            'nama'                => $row['nama'] ?? null,
-                            'kelamin'             => $kelamin,
-                            'tempat_lahir'        => $tempat,
-                            'tanggal_lahir'       => $tanggal,
-                            'alamat'              => $row['alamat'] ?? null,
-                            'no_wa'               => $row['no_hpwa'] ?? null,
-                            'tahun_masuk_kuliah'  => $row['tahun_masuk_kuliah'] ?? null,
-                            'jurusan_id'          => $jurusanId,
-                        ]);
-                    }
-
-                    return $rows;
-                }),
-
+                ->visible(fn () => auth()->user()->hasRole('Super Admin')),
             CreateAction::make(),
-
             ExportAction::make()
                 ->label('Ekspor ke Excel')
                 ->icon('heroicon-o-arrow-up-tray')

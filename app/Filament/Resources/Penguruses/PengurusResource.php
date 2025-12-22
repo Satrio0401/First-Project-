@@ -30,6 +30,21 @@ class PengurusResource extends Resource
 
     protected static ?int $navigationSort = 1;
 
+    protected static ?string $recordTitleAttribute = 'nama';
+
+    protected static ?array $globalSearchAttributes = [
+        'nama',
+        'jabatan',
+    ];
+
+    public static function getGlobalSearchResultDetails($record): array
+    {
+        return [
+            'Jabatan' => $record->jabatan ?? '-',
+            'Status' => $record->status ?? '-',
+        ];
+    }
+
     public static function form(Schema $schema): Schema
     {
         return PengurusForm::configure($schema);

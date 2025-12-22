@@ -20,7 +20,18 @@ class JurusanResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::AcademicCap;
 
-    protected static ?string $recordTitleAttribute = 'Jurusan';
+    protected static ?string $recordTitleAttribute = 'nama_jurusan';
+
+    protected static ?array $globalSearchAttributes = [
+        'nama_jurusan',
+    ];
+
+    public static function getGlobalSearchResultDetails($record): array
+    {
+        return [
+            'Jumlah Anggota' => $record->anggotas()->count() . ' anggota',
+        ];
+    }
 
     public static function form(Schema $schema): Schema
     {

@@ -30,6 +30,21 @@ class ProgramKerjaResource extends Resource
 
     protected static ?int $navigationSort = 3;
 
+    protected static ?string $recordTitleAttribute = 'nama';
+
+    protected static ?array $globalSearchAttributes = [
+        'nama',
+        'deskripsi',
+    ];
+
+    public static function getGlobalSearchResultDetails($record): array
+    {
+        return [
+            'Status' => $record->status ?? '-',
+            'Tanggal Mulai' => $record->tanggal_mulai?->format('d M Y') ?? '-',
+        ];
+    }
+
     public static function form(Schema $schema): Schema
     {
         return ProgramKerjaForm::configure($schema);

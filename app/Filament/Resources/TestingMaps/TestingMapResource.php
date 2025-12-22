@@ -20,6 +20,9 @@ class TestingMapResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
+    // Disable global search untuk testing map
+    protected static bool $isGloballySearchable = false;
+
     protected static ?string $recordTitleAttribute = 'TestingMap';
 
     public static function form(Schema $schema): Schema

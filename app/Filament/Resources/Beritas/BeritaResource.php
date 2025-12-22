@@ -30,6 +30,20 @@ class BeritaResource extends Resource
 
     protected static ?int $navigationSort = 2;
 
+    protected static ?string $recordTitleAttribute = 'judul';
+
+    protected static ?array $globalSearchAttributes = [
+        'judul',
+        'konten',
+    ];
+
+    public static function getGlobalSearchResultDetails($record): array
+    {
+        return [
+            'Tanggal' => $record->created_at?->format('d M Y') ?? '-',
+        ];
+    }
+
     public static function form(Schema $schema): Schema
     {
         return BeritaForm::configure($schema);

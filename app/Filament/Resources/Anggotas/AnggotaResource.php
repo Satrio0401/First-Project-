@@ -22,7 +22,25 @@ class AnggotaResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::Users;
 
-    protected static ?string $recordTitleAttribute = 'Anggota';
+    protected static ?string $recordTitleAttribute = 'nama';
+
+    protected static ?array $globalSearchAttributes = [
+        'nama',
+        'alamat',
+        'no_wa',
+        'tempat_lahir',
+        'jurusan.nama_jurusan',
+        'komisariat.nama',
+    ];
+
+    public static function getGlobalSearchResultDetails($record): array
+    {
+        return [
+            'Jurusan' => $record->jurusan?->nama_jurusan ?? '-',
+            'Komisariat' => $record->komisariat?->nama ?? '-',
+            'No. WA' => $record->no_wa ?? '-',
+        ];
+    }
 
     public static function form(Schema $schema): Schema
     {

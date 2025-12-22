@@ -21,7 +21,20 @@ class KomisariatResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::BuildingOffice;
 
-    protected static ?string $recordTitleAttribute = 'komisariat';
+    protected static ?string $recordTitleAttribute = 'nama';
+
+    protected static ?array $globalSearchAttributes = [
+        'nama',
+        'alamat',
+    ];
+
+    public static function getGlobalSearchResultDetails($record): array
+    {
+        return [
+            'Alamat' => $record->alamat ?? '-',
+            'Jumlah Anggota' => $record->anggotas()->count() . ' anggota',
+        ];
+    }
 
     public static function form(Schema $schema): Schema
     {

@@ -20,7 +20,20 @@ class UserResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::Key;
 
-    protected static ?string $recordTitleAttribute = 'user';
+    protected static ?string $recordTitleAttribute = 'email';
+
+    protected static ?array $globalSearchAttributes = [
+        'email',
+        'anggota.nama',
+    ];
+
+    public static function getGlobalSearchResultDetails($record): array
+    {
+        return [
+            'Nama' => $record->anggota?->nama ?? '-',
+            'Email' => $record->email ?? '-',
+        ];
+    }
 
     public static function form(Schema $schema): Schema
     {

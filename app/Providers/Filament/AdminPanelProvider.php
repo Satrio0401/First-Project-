@@ -71,7 +71,6 @@ class AdminPanelProvider extends PanelProvider
             ->sidebarFullyCollapsibleOnDesktop()
             ->brandLogo(fn() => view('filament.admin.logo'))
             ->brandLogoHeight('2rem')
-            ->globalSearch(false)
             ->renderHook(
                 PanelsRenderHook::HEAD_END,
                 fn(): string => Blade::render('@vite(["resources/css/app.css", "resources/js/app.js"])')

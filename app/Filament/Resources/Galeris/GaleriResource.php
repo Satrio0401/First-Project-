@@ -27,6 +27,18 @@ class GaleriResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'judul';
 
+    protected static ?array $globalSearchAttributes = [
+        'judul',
+        'deskripsi',
+    ];
+
+    public static function getGlobalSearchResultDetails($record): array
+    {
+        return [
+            'Tanggal Upload' => $record->created_at?->format('d M Y') ?? '-',
+        ];
+    }
+
     public static function form(Schema $schema): Schema
     {
         return GaleriForm::configure($schema);

@@ -42,6 +42,14 @@ class TestingMapResource extends Resource
         ];
     }
 
+    public static function shouldRegisterNavigation(): bool
+    {
+        // Kembalikan false untuk menyembunyikan dari navigasi.
+        // Anda juga bisa menambahkan logika di sini, misalnya:
+        // return auth()->user()->hasRole('Super Admin');
+        return false;
+    }
+
     public static function getPages(): array
     {
         return [

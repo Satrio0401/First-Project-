@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class Anggota extends Model
 {
@@ -37,16 +39,41 @@ class Anggota extends Model
     {
         return $this->hasOne(User::class, 'anggota_id');
     }
-    
+
 
     public function jurusan()
     {
         return $this->belongsTo(Jurusan::class);
     }
 
-     // Relasi ke Komisariat
-     public function komisariat()
-     {
-         return $this->belongsTo(Komisariat::class);
-     }
+    // Relasi ke Komisariat
+    public function komisariat()
+    {
+        return $this->belongsTo(Komisariat::class);
+    }
+
+    use LogsActivity;
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly([
+                'nama',
+                'kelamin',
+                'jurusan_id',
+                'komisariat_id',
+                'no_wa',
+                'alamat',
+                'tahun_lk1',
+                // kolom lain yang mau ditrack
+            ])
+            ->logOnlyDirty()           // hanya log kalau ada perubahan
+            ->dontSubmitEmptyLogs()    // jangan log kalau tidak ada yg berubah
+            ->setDescriptionForEvent(fn(string $eventName) => match ($eventName) {
+                'created' => 'Anggota baru ditambahkan',
+                'updated' => 'Data anggota diperbarui',
+                'deleted' => 'Anggota dihapus',
+                default   => $eventName,
+            });
+    }
 }

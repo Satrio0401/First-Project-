@@ -28,10 +28,9 @@ class visualisasi extends Page
         $this->jurusanOptions = Jurusan::pluck('nama_jurusan', 'id');
         $this->komisariatOptions = Komisariat::pluck('nama', 'id');
 
-        // 2. Ambil Data Komisariat
         $this->komisariatJson = Komisariat::whereNotNull('latitude')
             ->whereNotNull('longitude')
-            ->get(['id', 'nama', 'latitude', 'longitude'])
+            ->get(['id', 'nama', 'alamat', 'latitude', 'longitude'])
             ->toArray();
 
         // 3. Ambil SEMUA Data Anggota beserta relasinya
